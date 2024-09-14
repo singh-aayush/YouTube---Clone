@@ -1,0 +1,3036 @@
+/* :root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+} */
+
+/* body {
+  width: 100%;
+  height: fit-content;
+} */
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  /* border-radius: 10px; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Navbar Styling */
+
+.navbar {
+  width: 100%;
+  position: fixed;
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  background-color: #0f0f0f;
+  border-bottom: 1px solid orange;
+  z-index: 1000;
+}
+
+.navLogo {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  position: relative;
+  align-items: center;
+  justify-items: center;
+  left: 6vh;
+  transition: all 0.6s ease;
+}
+
+.navLogo img {
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  /* border: 0.5px solid orange; */
+  cursor: pointer;
+  transition: transform 0.6s ease;
+}
+
+.navLogo img:hover,
+.navLogo.clicked img {
+  transform: rotate(360deg);
+}
+
+.searchBarForm {
+  width: 40rem;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.searchBar {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.searchBar input {
+  width: 80%;
+  border-radius: 9vh;
+  height: 100%;
+  padding: 0px 1rem;
+  outline: none;
+  line-height: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background: transparent;
+  border: 0.5px solid orange;
+  color: white;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  outline: none;
+  box-shadow: none;
+}
+
+.searchBarButton {
+  height: 3.7vh;
+  width: 5rem;
+  border-top-right-radius: 9vh;
+  border-bottom-right-radius: 9vh;
+  border: 0.5px solid orange;
+  background: grey;
+  color: white;
+  line-height: 24px;
+  font-size: 16px;
+  box-shadow: none;
+  cursor: pointer;
+  height: 100%;
+}
+
+.yourProfile {
+  display: flex;
+  width: 100%;
+  justify-content: right;
+  position: relative;
+  align-items: center;
+  justify-items: center;
+  right: 6vh;
+  position: relative;
+}
+
+.yourProfile img {
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  /* border: 0.5px solid orange; */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yourProfile img:hover {
+  transform: scale(1.2);
+}
+
+.profileMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.profileMenu.show {
+  display: block;
+}
+
+.profileMenu button {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profileMenu button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Navbar Styling End */
+
+/* MainContainer Styling  */
+
+.mainContainer {
+  background-color: #0f0f0f;
+  height: calc(100vh);
+  width: 100%;
+  display: flex;
+  padding-top: 8vh;
+  overflow-y: auto;
+}
+
+.sidebarToggleButton {
+  display: none;
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  border: none;
+}
+
+.contentContainer {
+  margin-left: 250px;
+  flex: 1;
+  padding: 20px;
+}
+
+.sidebarToggleButton {
+  height: 2.3rem;
+  padding: 0;
+  width: 100%;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  display: none;
+  position: relative;
+  left: 0;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.sideBarContainer {
+  height: 100%;
+  flex: 0 0 250px;
+  width: 220px;
+  position: fixed;
+}
+
+.fullWidth {
+  margin-left: 0;
+  flex: 1;
+}
+
+.sideBar {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-right: 1px solid orange;
+}
+
+.sideBar li {
+  color: white;
+  list-style: none;
+  text-decoration: none;
+  padding: 15px;
+  padding-left: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-radius 0.3s ease;
+  width: 100%;
+  border-bottom: 0.5px solid orange;
+  position: relative;
+  overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
+}
+
+.sideBar li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #cec5c5; /* Background color for the fill effect */
+  transform: scaleX(0); /* Initially hidden */
+  transform-origin: left; /* Fill from left to right */
+  transition: transform 0.3s ease; /* Smooth transition */
+  z-index: -1; /* Positioned behind text */
+}
+
+.sideBar li:hover::before {
+  transform: scaleX(1); /* Fill effect on hover */
+}
+
+.sideBar li:hover {
+  color: purple; /* Change text color on hover */
+  border-radius: 2px; /* Optional rounded corners */
+}
+
+.allVideoContent {
+  width: 100%;
+  height: 100%;
+}
+
+.videoContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 5vh 5vh;
+  gap: 5vh;
+  background-color: transparent;
+  color: white;
+  height: 100%;
+  position: relative;
+  /* display: flex; */
+  /* flex-direction: column; */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  outline: none;
+  /* padding: 5px; */
+}
+
+.contentThumbnail {
+  width: 21rem;
+  height: 17rem;
+}
+.contentThumbnail img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.contentThumbnail img:hover {
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.362);
+  border-radius: 0px;
+  padding: 4px;
+}
+
+.videoThumbnail {
+  width: 100%;
+  height: 100%;
+}
+
+.contentDescription {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.channelLogo {
+  /* margin-top: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid white;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  left: 4px;
+}
+
+.channelLogo img {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.videoDescription {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 16px;
+  margin-right: 20px;
+}
+
+.videoDescription h3 {
+  margin: 0;
+  padding: 10px 0px 7px 0px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.aboutChannel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+}
+
+.aboutChannel a {
+  color: rgb(230, 220, 220);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* MainContainer Styling End */
+
+/* SignUp and Login Start */
+
+.signUpBody {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.signupContainer {
+  background: transparent;
+  color: orange;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+}
+
+.signupContainer h2 {
+  font-size: 2rem;
+  margin: 12px 0;
+}
+
+.signupContainer form {
+  width: 100%;
+  padding: 0 10px;
+  color: white;
+}
+
+.signupForm label {
+  display: block;
+  font-size: 1.2rem;
+  margin: 16px 0 6px;
+}
+
+.signupForm input {
+  width: 100%;
+  margin-left: 1rem;
+  background: transparent;
+  border: none;
+  border-radius: none;
+  border-bottom: 1px solid orange;
+  padding: 7px;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.signupForm .fileInputOfSignUpPage {
+  border: 0px;
+}
+
+.bodyContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerContainer {
+  width: 40rem;
+  height: 60rem;
+  background-color: black;
+}
+
+.signUpButtonInLoginPage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.signUpButtonInLoginPage button {
+  border: 1px solid white;
+  padding: 9px;
+  background-color: transparent;
+  border-radius: 8px;
+  margin-top: 0px;
+  outline: none;
+  color: white;
+  font-weight: bold;
+  width: 5rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.signUpButtonInLoginPage p {
+  margin-top: 0px;
+  color: white;
+}
+
+.signUpButtonInLoginPage button:hover {
+  background-color: orange;
+  color: black;
+  text-decoration: none;
+}
+
+.wholeBody {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loginContainer {
+  width: 60%;
+  /* height: 30rem; */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: #000;
+  /* border-radius: 34px; */
+}
+
+.loginContainer h2 {
+  color: orange;
+  padding-top: 0rem;
+  margin: 0;
+  padding-top: 4rem;
+  font-size: 2rem;
+}
+
+.loginDetails {
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.loginForm {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-direction: column;
+  font-size: 1.5rem;
+  position: relative;
+  padding: 0 8rem;
+}
+
+.loginForm label {
+  left: -53px;
+  /* position: absolute; */
+  padding: 1rem;
+  position: relative;
+  color: white;
+  font-weight: bolder;
+}
+
+.loginForm input {
+  border: 0;
+  color: orange;
+  background: transparent;
+  border-bottom: 2px solid orange;
+  border-radius: 0;
+  width: 100%;
+  height: 2.2rem;
+  outline: none;
+  padding: 5px 8px;
+  font-size: 1.2rem;
+}
+
+.formButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 2rem; */
+}
+
+.formButton button {
+  width: 60%;
+  background: orange;
+  box-shadow: 5px 8px #eee;
+  color: black;
+  margin: 2.5rem;
+  padding: 10px 21px;
+  border-radius: 7px;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.formButton button:active {
+  box-shadow: none !important;
+  transform: scale(0.98s);
+}
+
+/* SignUp and Login End */
+
+/* VideoPlayer Start */
+
+.videoPlayerContainer {
+  margin: 2rem 0 0 2rem;
+  width: 55rem;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 30rem;
+}
+
+.videoPlayer video {
+  width: 100%;
+  height: 100%;
+}
+
+.videoInfo {
+  color: white;
+}
+
+.videoInfo h2 {
+  margin: 0;
+  padding: 7px 0;
+}
+
+.videoPlayerAboutChannel {
+  width: 100%;
+  /* padding: 7px; */
+  margin: 7px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+}
+
+.videoPlayerChannelLogo {
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+}
+
+.videoPlayerChannelLogo img {
+  border-radius: 50%;
+  border: 1px solid white;
+  width: 100%;
+  height: 100%;
+}
+
+.aboutOwnerAndSubscribers {
+  margin-left: 1.5rem;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  flex-direction: column;
+}
+
+.aboutOwnerAndSubscribers h3 {
+  margin: 0;
+  padding-top: 10px;
+}
+
+.aboutOwnerAndSubscribers p {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.subscribeButtonInVideoPlayer {
+  margin-left: 1rem;
+}
+
+.subscribeButtonInVideoPlayer button {
+  padding: 10px;
+  border-radius: 21px;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.videoLikes {
+  right: 0;
+  position: absolute;
+}
+
+.videoLikes button {
+  width: 70px;
+  height: 35px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  outline: none;
+  margin-right: 1.5rem;
+  cursor: pointer;
+}
+
+.VideoPlayerDescriptionSection {
+  width: 100%;
+  padding: 7px;
+  background: #8874748a;
+  border-radius: 10px;
+  padding-left: 15px;
+  margin-top: 1rem;
+}
+
+.sideVideoContentContainer {
+  width: 360px;
+  position: relative;
+  display: block;
+  right: 0;
+  top: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.commentSectionOfVideoPlayer {
+  background-color: #332f2f7d;
+  border-radius: 10px;
+  width: 100%;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.toggleCommentsButton {
+  display: none;
+}
+
+.commentSectionOfVideoPlayer p {
+  color: white;
+  padding-left: 2rem;
+}
+
+.commentWrittenByYou {
+  margin: 1rem 0;
+  padding: 7px;
+  /* display: flex; */
+  width: 100%;
+}
+
+.yourComment {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.yourCommentLogo {
+  width: 35px;
+  margin-left: 10px;
+  height: 35px;
+  align-items: center;
+  display: flex;
+}
+
+.yourCommentLogo img {
+  border-radius: 50%;
+  border: 1px solid white;
+  width: 100%;
+  height: 100%;
+}
+
+.commentInput {
+  width: 100%;
+}
+
+.commentInput input {
+  margin: 0 1rem;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid orange;
+  background: transparent;
+  width: 96%;
+  padding: 7px;
+  /* padding-bottom: 0; */
+  font-size: 1rem;
+  color: white;
+}
+
+.commentButton button {
+  width: 70px;
+  height: 35px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  outline: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.allCommentOnThisVideo {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+}
+
+.commentOwnerLogo {
+  width: 35px;
+  margin-left: 10px;
+  height: 35px;
+  align-items: center;
+  display: flex;
+}
+
+.commentOwnerLogo img {
+  border-radius: 50%;
+  border: 1px solid white;
+  width: 100%;
+  height: 100%;
+}
+
+.commentTextSection {
+  margin-left: 1rem;
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: center;
+}
+
+.commentUserName h3 {
+  margin: 0;
+  color: white;
+}
+
+.peopleCommentsMassage {
+  width: 100%;
+}
+
+.editCommentSection {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.editCommentSection input {
+  width: 70%;
+  padding: 5px;
+  font-size: 1rem;
+  outline: none;
+  background: transparent;
+  color: white;
+  border: 0;
+  border-bottom: 1px solid orange;
+  padding-left: 9px;
+}
+
+.editCommentSection button {
+  padding: 7px;
+  border-radius: 20px;
+  width: 5rem;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.editCommentSection button:hover {
+  background-color: skyblue;
+  box-shadow: 3px 3px 10px #eee;
+}
+
+.commentActions {
+  margin-top: 6px;
+  display: flex;
+  width: 50%;
+}
+
+.commentActions button {
+  margin-left: 1rem;
+  background-color: tomato;
+  padding: 4px;
+  border-radius: 20px;
+  width: 4rem;
+  color: black;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.commentActions button:hover {
+  box-shadow: 3px 3px 10px tomato;
+}
+
+.peopleCommentsMassage p {
+  margin: 0;
+  padding-top: 7px;
+  padding-left: 10px;
+  color: #d7d7d7;
+}
+
+.commentLike {
+  position: absolute;
+  right: 0;
+  margin-right: 1rem;
+}
+
+.commentLike button {
+  border-radius: 20px;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.contentContainer.fullWidth .sideVideoContentContainer {
+  right: 0;
+  position: fixed;
+  width: 580px;
+  top: 0;
+  padding: rem 0 0 2rem;
+  margin: 5rem 1rem;
+}
+
+.sideVideoContents {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-top: 1rem;
+}
+
+.sideVideos {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  width: 100%;
+  height: 120px;
+  padding: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sideVideos:hover {
+  box-shadow: inset 5px 5px 150px #fff !important;
+}
+
+.sideVideos:hover .sideVideoThumbnail img {
+  border-radius: 0;
+}
+
+.sideVideosDetails h3 {
+  color: white;
+}
+
+.sideVideoThumbnail {
+  width: 230px;
+  height: 100%;
+}
+
+.sideVideoThumbnail img {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+/* VideoPlayer End */
+
+/* Subscription container start */
+
+.subscriptionContainer {
+  color: white;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.subscribedChannels {
+  width: 12rem;
+  height: 17rem;
+}
+
+.subscribedChannelLogo {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subscribedChannelLogo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+}
+
+.subscribedChannelDetails {
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: cl;
+  flex-direction: column;
+}
+
+.subscribedChannelDetails p {
+  margin: 0;
+}
+
+/* Subscription container end */
+
+.channelDetails {
+  padding-bottom: 8px;
+  border-bottom: 1px solid orange;
+}
+
+.coverImageOfChannel {
+  width: 100%;
+  height: 13rem;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  position: relative;
+}
+
+.coverImageOfChannel img {
+  width: 100%;
+  height: 100%;
+}
+
+.coverImageOfChannel .channelLogo {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  top: 9rem;
+  left: 2rem;
+}
+
+.coverImageOfChannel .channelLogo img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid orange;
+  outline: none;
+}
+
+.channelNameAndSubscribers {
+  width: 100%;
+  color: white;
+  margin-top: 4rem;
+  position: relative;
+  padding-left: 13rem;
+}
+
+.channelNameAndSubscribers p {
+  margin-top: 0px;
+}
+
+.publishVideo {
+  width: 100%;
+  height: 100%;
+  margin-top: 4rem;
+  color: white;
+}
+
+.publishVideo form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+.subscriberButtonInChannel {
+  position: absolute;
+  width: 80%;
+  /* right: 0; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  top: 0.5rem;
+  padding-right: 1rem;
+}
+
+.subscriberButtonInChannel button {
+  width: 8rem;
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid orange;
+  border-radius: 9px;
+  outline: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.subscriberButtonInChannel button:hover {
+  background-color: orange;
+  color: black;
+  border: 1px solid white;
+}
+
+.publishButtonInChannel {
+  position: absolute;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  top: 0.5rem;
+  padding-right: 3rem;
+}
+
+.publishButtonInChannel button {
+  width: 8rem;
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid orange;
+  border-radius: 9px;
+  outline: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.publishButtonInChannel button:hover {
+  background-color: orange;
+  color: black;
+  border: 1px solid white;
+}
+
+.publishPage {
+  width: 100%;
+  /* height: calc(100% - 8vh); */
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  /* padding-top: 8rem; */
+  /* margin-top: 8rem; */
+  height: 100%;
+  z-index: 999;
+  overflow-y: hidden;
+  padding-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.publishVideoOfChannel {
+  width: 90%;
+  height: 88%;
+  padding: 16px;
+  padding-top: 0px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* flex-direction: clo; */
+  flex-direction: column;
+  align-items: center;
+}
+
+.publishVideoOfChannel h3 {
+  font-size: 2rem;
+  color: orange;
+  margin-top: 0px;
+}
+
+.publishVideoOfChannel form {
+  width: 80%;
+  height: 100%;
+  gap: 10px;
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.publishVideoOfChannel form .uploadingThings {
+  border: 0px;
+}
+
+.publishVideoOfChannel form label {
+  color: orange;
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.publishVideoOfChannel form input {
+  width: 40%;
+  padding: 7px;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  border-bottom: 1px solid orange;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  margin-left: 1rem;
+  /* margin: 7px; */
+}
+
+.publishVideoOfChannel form .videoDescriptionTextArea {
+  width: 40%;
+  padding: 7px;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  border-bottom: 1px solid orange;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  margin-left: 1rem;
+  /* margin: 7px; */
+}
+
+.publishVideoOfChannel form button {
+  margin-top: 2rem;
+  width: 8rem;
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid orange;
+  border-radius: 9px;
+  outline: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.publishVideoOfChannel form button:hover {
+  background-color: orange;
+  color: black;
+  border: 1px solid white;
+}
+
+.filePreviewContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+}
+
+.filePreview {
+  margin-left: 10px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+video.filePreview {
+  width: 300px;
+  border: 2px solid orange;
+  border-radius: 9px;
+  height: auto;
+  padding: 0px;
+  position: absolute;
+  right: 0px;
+  margin-bottom: 5rem;
+}
+
+img.filePreview {
+  width: 250px;
+  border: 2px solid orange;
+  border-radius: 9px;
+  height: auto;
+  position: absolute;
+  right: 0;
+  margin-top: 2rem;
+}
+
+.userHistory {
+  color: #eee;
+}
+
+.userHistory .videoContent {
+  padding: 2rem;
+}
+
+/* SEARCH RESULT PAGE START */
+
+.searchContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.searchResultFromDatabase {
+  width: 100%;
+  height: 100%;
+}
+
+.searchResultFromDatabase h2 {
+  color: white;
+}
+
+.videoOfSearchResult {
+  width: 100%;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  border-radius: 11px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.videoOfSearchResult img {
+  width: 23rem;
+  height: 200px;
+  border-radius: 11px;
+  transition: transform 0.3s ease;
+}
+
+.videoOfSearchResult:hover {
+  transform: scale(0.99);
+  box-shadow: inset 0px 4px 8px white;
+}
+
+.videoOfSearchResult:hover img {
+  transform: scale(0.98);
+}
+
+.videoDetailsOfSearchResult {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #9f9f9f;
+  font-weight: 400;
+  padding: 1rem 0;
+}
+
+.videoDetailsOfSearchResult p {
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.videoNameAndDescription h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+}
+
+.videoNameAndDescription p {
+  margin: 7px 0 0;
+  font-size: 1.2rem;
+}
+
+.channelDetailOfSearchResult {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  align-items: center;
+  color: #9f9f9f;
+  font-weight: 400;
+}
+
+.channelDetailOfSearchResult img {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+}
+
+/* SEARCH RESULT PAGE END */
+
+/* MEDIA QUERIES STARTED */
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  video.filePreview {
+    margin-bottom: 5rem;
+  }
+  .filePreviewContainer img {
+    margin-top: 5rem;
+  }
+  .loginContainer {
+    width: 60%;
+  }
+  .loginForm {
+    padding: 0 4rem;
+  }
+  .loginForm label {
+    font-size: 1.2rem;
+  }
+  .loginForm input {
+    font-size: 1rem;
+  }
+  .navLogo img {
+    width: 4.5vh;
+    height: 4.5vh;
+  }
+  .yourProfile img {
+    width: 4.5vh;
+    height: 4.5vh;
+  }
+  .contentContainer {
+    padding: 10px;
+  }
+  .videoContent {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .contentThumbnail {
+    width: 18rem;
+    height: 14rem;
+  }
+  .searchBarForm {
+    width: 28rem;
+    height: 35px;
+  }
+  .searchBarButton {
+    width: 4.5rem;
+  }
+  .sideBarContainer {
+    width: 190px;
+  }
+  .videoPlayerContainer {
+    width: 64%;
+    margin: 1rem 0 0 1rem;
+  }
+  .videoPlayer {
+    height: 25rem;
+  }
+  .contentContainer.fullWidth .sideVideoContentContainer {
+    width: 33%;
+  }
+  .sideVideos {
+    gap: 12px;
+  }
+  .sideVideoThumbnail {
+    width: 200px;
+  }
+  .sideVideosDetails {
+    padding: 10px 0;
+  }
+  .sideVideosDetails h3 {
+    margin: 0;
+    font-size: 15px;
+  }
+  .aboutChannel a {
+    font-size: 12px;
+  }
+  .videoInfo h2 {
+    font-size: 1.2rem;
+  }
+  .videoPlayerAboutChannel {
+    /* margin-left: 1rem; */
+    height: 3rem;
+  }
+  .videoPlayerChannelLogo {
+    width: 40px;
+    height: 40px;
+  }
+  .aboutOwnerAndSubscribers {
+    padding: 7px;
+    margin-left: 1rem;
+  }
+  .subscribeButtonInVideoPlayer button {
+    width: 7rem;
+    font-size: 14px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .aboutOwnerAndSubscribers h3 {
+    font-size: 1rem;
+  }
+  .aboutOwnerAndSubscribers p {
+    font-size: 12px;
+  }
+  .videoLikes button {
+    height: 30px;
+    width: 60px;
+    font-size: 14px;
+  }
+  .VideoPlayerDescriptionSection p {
+    margin: 8px 0;
+  }
+  .commentSectionOfVideoPlayer {
+    margin: 1rem 0;
+  }
+  .commentWrittenByYou {
+    margin: 7px 0;
+  }
+  .commentButton button {
+    height: 30px;
+    width: 60px;
+    font-size: 14px;
+  }
+  .allCommentOnThisVideo {
+    padding: 7px;
+    margin-bottom: 7px;
+  }
+  .commentUserName h3 {
+    font-size: 1rem;
+  }
+  .peopleCommentsMassage p {
+    font-size: 14px;
+  }
+  .commentActions {
+    margin-top: 10px;
+  }
+  .commentActions button {
+    height: 25px;
+    margin-left: 12px;
+    font-size: 12px;
+    width: 3.5rem;
+  }
+  .editCommentSection input {
+    width: 80%;
+  }
+  .editCommentSection button {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    font-size: 14px;
+  }
+  .coverImageOfChannel {
+    height: 11rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .coverImageOfChannel .channelLogo {
+    top: 7rem;
+    width: 7rem;
+    height: 7rem;
+  }
+  .channelNameAndSubscribers {
+    margin-top: 2rem;
+    padding-left: 12rem;
+  }
+  .channelNameAndSubscribers h2 {
+    margin: 14px 0;
+  }
+  .publishButtonInChannel button {
+    width: 6rem;
+    font-size: 16px;
+  }
+  .channelVideoContainer h3 {
+    font-size: 1rem;
+    margin: 14px 0;
+  }
+  .channelVideoContainer p {
+    color: orange;
+    margin: 0;
+  }
+  .commentButton {
+    height: 30px;
+    width: 60px;
+    font-size: 14px;
+  }
+  .userHistoryPage {
+    padding: 10px 0;
+  }
+  .userHistory h1 {
+    font-size: 1.5rem;
+  }
+  .publishVideoOfChannel form {
+    gap: 5px;
+  }
+  .publishVideoOfChannel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .publishVideoOfChannel form label {
+    font-size: 1rem;
+  }
+  .publishVideoOfChannel form input {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+/* MEDIA QUERIES FOR TABLET DEVICES START */
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  video.filePreview {
+    margin-bottom: 5rem;
+  }
+  .filePreviewContainer img {
+    margin-top: 5rem;
+  }
+  .signupContainer {
+    width: 60%;
+  }
+  .loginContainer {
+    width: 80%;
+  }
+  .loginForm {
+    padding: 0 4rem;
+  }
+  .loginForm label {
+    font-size: 1.2rem;
+  }
+  .loginForm input {
+    font-size: 1rem;
+  }
+  .sidebarToggleButton {
+    display: flex;
+    width: 100%;
+  }
+  .activeToggleButton {
+    left: 13.8rem;
+  }
+  .sideBarToggleContainer {
+    height: 2.3rem;
+    width: 3rem;
+  }
+  .sideBarContainer {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    padding: 0;
+    padding-top: 4.7rem;
+    z-index: 900;
+  }
+  .sideBarContainer.hide {
+    display: none;
+  }
+  .sidebarToggleButton {
+    display: block;
+    width: 100%;
+  }
+  .contentContainer {
+    width: calc(100% - 90px);
+    padding: 10px;
+    margin: 0;
+  }
+  .videoContent {
+    padding: 1rem 0;
+    margin-top: 2rem;
+    gap: 20px;
+  }
+  .contentThumbnail {
+    width: 17rem;
+    height: 12rem;
+  }
+  .toggleCommentsButton {
+    display: block;
+    margin: 0 1rem 1rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid orange;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .contentContainer.fullWidth .sideVideoContentContainer {
+    width: 100%;
+    position: relative;
+    margin: 1rem;
+  }
+  .videoPlayerContainer {
+    margin: 0;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .sideVideoContentContainer {
+    margin: 0;
+    width: 100%;
+  }
+  .sideVideoContents {
+    margin: 0;
+  }
+  .videoPlayer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #000;
+  }
+  .contentContainer {
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  .channelPage {
+    padding: 2.5rem 0 0;
+    width: 100%;
+  }
+  .coverImageOfChannel {
+    height: 11rem;
+  }
+  .coverImageOfChannel .channelLogo {
+    top: 8rem;
+    width: 6rem;
+    height: 6rem;
+  }
+  .channelNameAndSubscribers {
+    margin-top: 2rem;
+    padding-left: 11rem;
+  }
+  .userHistoryPage {
+    padding: 2.5rem 0;
+  }
+  .userHistory h1 {
+    font-size: 1.5rem;
+  }
+  .userHistory .videoContent {
+    padding: 1rem;
+    margin: 0;
+  }
+  .searchContainer {
+    padding: 2rem 0 0;
+  }
+  .videoOfSearchResult {
+    height: 160px;
+  }
+  .videoOfSearchResult img {
+    width: 19rem;
+    height: 100%;
+  }
+  .videoDetailsOfSearchResult {
+    padding: 10px 0;
+  }
+  .videoNameAndDescription h3 {
+    font: 1.2rem;
+  }
+  .videoNameAndDescription p {
+    font-size: 14px;
+  }
+  .videoDetailsOfSearchResult p {
+    margin: 8px 0;
+  }
+  .channelDetailOfSearchResult img {
+    width: 35px;
+    height: 35px;
+  }
+  .searchBarForm {
+    width: 30rem;
+  }
+  .searchBarForm button {
+    width: 4rem;
+    font-size: 14px;
+  }
+  .publishVideoOfChannel form {
+    gap: 5px;
+  }
+  .publishVideoOfChannel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .publishVideoOfChannel form label {
+    font-size: 1rem;
+  }
+  .publishVideoOfChannel form input {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .publishVideoOfChannel form button {
+    width: 6rem;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  video.filePreview {
+    margin-bottom: 5rem;
+  }
+  .filePreviewContainer img {
+    margin-top: 5rem;
+  }
+  .signupContainer {
+    width: 70%;
+  }
+  .loginContainer {
+    width: 95%;
+  }
+  .loginForm {
+    padding: 0 4rem;
+  }
+  .loginForm label {
+    font-size: 1.2rem;
+  }
+  .loginForm input {
+    font-size: 1rem;
+  }
+  .formButton button {
+    margin: 2rem;
+  }
+  .signUpButtonInLoginPage button {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navLogo img {
+    width: 4vh;
+    height: 4vh;
+  }
+  .yourProfile img {
+    width: 4vh;
+    height: 4vh;
+  }
+  .sidebarToggleButton {
+    display: flex;
+    width: 100%;
+  }
+  .activeToggleButton {
+    left: 13.8rem;
+  }
+  .sideBarToggleContainer {
+    height: 2.3rem;
+    width: 3rem;
+  }
+  .sideBarContainer {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    padding: 0;
+    padding-top: 4.7rem;
+    z-index: 900;
+  }
+  .sideBarContainer.hide {
+    display: none;
+  }
+  .sidebarToggleButton {
+    display: block;
+    width: 100%;
+  }
+  .contentContainer {
+    width: calc(100% - 90px);
+    padding: 10px;
+    margin: 0;
+  }
+  .videoContent {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem 0;
+    margin-top: 2rem;
+    gap: 20px;
+  }
+  .contentThumbnail {
+    width: 20rem;
+    height: 14rem;
+  }
+  .toggleCommentsButton {
+    display: block;
+    margin: 0 1rem 1rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid orange;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .contentContainer.fullWidth .sideVideoContentContainer {
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    overflow: hidden;
+    margin: 0rem;
+  }
+  .videoPlayerContainer {
+    margin: 0;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .sideVideoContentContainer {
+    margin: 0;
+    width: 100%;
+  }
+  .sideVideoContents {
+    margin: 0;
+  }
+  .videoPlayer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #000;
+  }
+  .contentContainer {
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  .channelPage {
+    padding: 2.5rem 0 0;
+    width: 100%;
+  }
+  .coverImageOfChannel {
+    height: 12rem;
+  }
+  .channelLogo {
+    width: 43px;
+    height: 43px;
+  }
+  .coverImageOfChannel .channelLogo {
+    top: 9rem;
+    width: 6rem;
+    height: 6rem;
+  }
+  .channelNameAndSubscribers {
+    margin-top: 2rem;
+    padding-left: 11rem;
+  }
+  .userHistoryPage {
+    padding: 2.5rem 0;
+  }
+  .userHistory h1 {
+    font-size: 1.5rem;
+  }
+  .userHistory .videoContent {
+    padding: 1rem;
+    margin: 0;
+  }
+  .searchContainer {
+    padding: 2rem 0 0;
+  }
+  .videoOfSearchResult {
+    height: 160px;
+  }
+  .videoOfSearchResult img {
+    width: 19rem;
+    height: 100%;
+  }
+  .videoDetailsOfSearchResult {
+    padding: 10px 0;
+  }
+  .videoNameAndDescription h3 {
+    font: 1.2rem;
+  }
+  .videoNameAndDescription p {
+    font-size: 14px;
+  }
+  .videoDetailsOfSearchResult p {
+    margin: 8px 0;
+  }
+  .channelDetailOfSearchResult img {
+    width: 35px;
+    height: 35px;
+  }
+  .searchBarForm {
+    width: 24rem;
+    height: 35px;
+  }
+  .searchBarForm button {
+    width: 4rem;
+    font-size: 14px;
+  }
+  .videoDescription h3 {
+    font-size: 1.2rem;
+  }
+  .searchResultFromDatabase h2 {
+    font-size: 1.3rem;
+  }
+  .videoOfSearchResult img {
+    width: 17rem;
+  }
+  .videoNameAndDescription h3 {
+    font-size: 1.2rem;
+  }
+  .videoNameAndDescription p {
+    font-size: 13px;
+  }
+  .channelDetailOfSearchResult img {
+    width: 32px;
+    height: 32px;
+  }
+  .publishVideoOfChannel form {
+    gap: 5px;
+    width: 90%;
+  }
+  .publishVideoOfChannel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .publishVideoOfChannel form label {
+    font-size: 14px;
+  }
+  .publishVideoOfChannel form input {
+    font-size: 12px;
+    width: 50%;
+    padding: 5px;
+  }
+  .publishVideoOfChannel form button {
+    width: 6rem;
+    font-size: 14px;
+  }
+  .publishVideoOfChannel form .videoDescriptionTextArea {
+    width: 50%;
+  }
+}
+
+/* MEDIA QUERIES FOR TABLET DEVICES END */
+
+/* MEDIA QUERIES FOR MOBILE DEVICES START */
+
+@media only screen and (min-width: 420px) and (max-width: 600px) {
+  .publishVideoOfChannel form .videoDescriptionTextArea {
+    width: 50%;
+  }
+  video.filePreview {
+    margin-bottom: 5rem;
+    width: 250px;
+  }
+  .filePreviewContainer img {
+    margin-top: 5rem;
+    width: 250px;
+  }
+  .signupContainer {
+    width: 80%;
+  }
+  .signupContainer h2 {
+    font-size: 1.5rem;
+  }
+  .signupForm label {
+    font-size: 1rem;
+  }
+  .signupForm input {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .loginContainer {
+    width: 95%;
+  }
+  .loginForm {
+    padding: 0 2rem;
+  }
+  .loginForm label {
+    font-size: 1.2rem;
+  }
+  .loginForm input {
+    font-size: 1rem;
+  }
+  .formButton button {
+    margin: 2rem;
+  }
+  .signUpButtonInLoginPage button {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navLogo {
+    position: relative;
+    left: 2rem;
+  }
+  .navLogo img {
+    width: 4vh;
+    height: 4vh;
+  }
+  .yourProfile {
+    position: relative;
+    right: 2rem;
+  }
+  .yourProfile img {
+    width: 4vh;
+    height: 4vh;
+  }
+  .sidebarToggleButton {
+    display: flex;
+    width: 100%;
+  }
+  .activeToggleButton {
+    left: 13.8rem;
+  }
+  .sideBarToggleContainer {
+    height: 2.3rem;
+    width: 3rem;
+  }
+  .sideBarContainer {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    padding: 0;
+    padding-top: 4.7rem;
+    z-index: 900;
+  }
+  .sideBarContainer.hide {
+    display: none;
+  }
+  .sidebarToggleButton {
+    display: block;
+    width: 100%;
+  }
+  .contentContainer {
+    width: calc(100% - 90px);
+    padding: 10px;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  .videoContent {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 1rem 0;
+    margin-top: 2rem;
+    gap: 20px;
+  }
+  .allFetchedVideos {
+    padding-right: 2rem;
+  }
+  .contentThumbnail {
+    width: 100%;
+    height: 16rem;
+  }
+  .toggleCommentsButton {
+    display: block;
+    margin: 0 1rem 1rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid orange;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .contentContainer.fullWidth .sideVideoContentContainer {
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    overflow: hidden;
+    margin: 0rem;
+  }
+  .videoPlayerContainer {
+    margin: 0;
+    width: 100%;
+    height: 20rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .videoPlayer {
+    height: 100%;
+  }
+  .sideVideoContentContainer {
+    margin: 0;
+    width: 100%;
+    height: fit-content;
+  }
+  .sideVideoContents {
+    margin: 0;
+  }
+  .videoPlayer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #000;
+  }
+  .contentContainer {
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  .channelPage {
+    padding: 2.5rem 0 0;
+    width: 100%;
+  }
+  .coverImageOfChannel {
+    height: 13rem;
+  }
+  .channelLogo {
+    width: 47px;
+    height: 47px;
+  }
+  .coverImageOfChannel .channelLogo {
+    top: 10.5rem;
+    left: 1.5rem;
+    width: 5rem;
+    height: 5rem;
+  }
+  .channelNameAndSubscribers {
+    margin-top: 1.5rem;
+    padding-left: 8rem;
+  }
+  .channelNameAndSubscribers h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  .channelNameAndSubscribers p {
+    font-size: 12px;
+  }
+  .userHistoryPage {
+    padding: 2.5rem 0;
+  }
+  .userHistory h1 {
+    font-size: 1.2rem;
+  }
+  .userHistory .videoContent {
+    padding: 1rem;
+    margin: 0;
+  }
+  .searchContainer {
+    padding: 2rem 2rem 0 0;
+  }
+  .videoOfSearchResult {
+    height: 150px;
+  }
+  .videoOfSearchResult img {
+    width: 15rem;
+    height: 100%;
+  }
+  .videoDetailsOfSearchResult {
+    padding: 10px 0;
+  }
+  .videoNameAndDescription h3 {
+    font: 1.2rem;
+  }
+  .videoNameAndDescription p {
+    font-size: 14px;
+  }
+  .videoDetailsOfSearchResult p {
+    margin: 8px 0;
+  }
+  .channelDetailOfSearchResult img {
+    width: 35px;
+    height: 35px;
+  }
+  .searchBarForm {
+    width: 18rem;
+    height: 32px;
+  }
+  .searchBarForm button {
+    width: 3rem;
+    padding: 0;
+    font-size: 12px;
+  }
+  .videoDescription h3 {
+    font-size: 1.2rem;
+  }
+  .searchResultFromDatabase h2 {
+    font-size: 1.2rem;
+  }
+  .videoOfSearchResult {
+    gap: 1rem;
+    height: 140px;
+  }
+  .videoOfSearchResult img {
+    width: 15rem;
+  }
+  .videoDetailsOfSearchResult p {
+    font-size: 14px;
+  }
+  .videoNameAndDescription h3 {
+    font-size: 1rem;
+  }
+  .videoNameAndDescription p {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .channelDetailOfSearchResult img {
+    width: 28px;
+    height: 28px;
+  }
+  .videoInfo h2 {
+    font-size: 1.2rem;
+  }
+  .videoPlayerChannelLogo {
+    width: 40px;
+    height: 40px;
+  }
+  .aboutOwnerAndSubscribers h3 {
+    padding: 0;
+    font-size: 1rem;
+  }
+  .aboutOwnerAndSubscribers p {
+    padding: 5px 0 0;
+    font-size: 12px;
+  }
+  .videoLikes button {
+    height: 30px;
+    width: 60px;
+    font-size: 13px;
+  }
+  .VideoPlayerDescriptionSection {
+    margin-top: 14px;
+    padding: 5px 0 5px 10px;
+  }
+  .VideoPlayerDescriptionSection p {
+    margin: 6px 0;
+  }
+  .commentSectionOfVideoPlayer {
+    margin: 14px 0;
+  }
+  .commentWrittenByYou {
+    margin: 12px 0;
+    padding: 0 5px;
+  }
+  .yourCommentLogo {
+    width: 32px;
+    height: 32px;
+  }
+  .commentInput {
+    padding: 5px;
+    font-size: 14px;
+    width: 92%;
+  }
+  .commentButton button {
+    width: 60px;
+    height: 30px;
+    font-size: 14px;
+  }
+  .toggleCommentsButton {
+    margin: 10px;
+  }
+  .sideVideos {
+    gap: 1rem;
+  }
+  .sideVideoThumbnail {
+    width: 200px;
+  }
+  .sideVideosDetails {
+    padding: 10px 0;
+  }
+  .sideVideosDetails h3 {
+    margin: 5px 0;
+  }
+  .channelInfo {
+    padding: 0 2rem 0 0;
+  }
+  .coverImageOfChannel {
+    height: 13rem;
+  }
+  .publishButtonInChannel button {
+    width: 6rem;
+    font-size: 14px;
+  }
+  .publishVideoOfChannel form {
+    gap: 5px;
+    width: 100%;
+  }
+  .publishVideoOfChannel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .publishVideoOfChannel form label {
+    font-size: 14px;
+  }
+  .publishVideoOfChannel form input {
+    font-size: 12px;
+    width: 50%;
+    padding: 5px;
+  }
+  .publishVideoOfChannel form button {
+    width: 5rem;
+    font-size: 13px;
+  }
+}
+
+@media only screen and (min-width: 100px) and (max-width: 420px) {
+  .signupContainer {
+    width: 95%;
+  }
+  .signupContainer h2 {
+    font-size: 1.2rem;
+  }
+  .signupForm {
+    padding: 0;
+  }
+  .signupForm label {
+    font-size: 14px;
+  }
+  .signupForm input {
+    font-size: 10px;
+    padding: 5px;
+  }
+  .formButton button {
+    margin: 1rem;
+    font-size: 14px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7rem;
+  }
+  .loginContainer {
+    width: 80%;
+  }
+  .loginDetails {
+    padding: 0;
+  }
+  .loginForm {
+    padding: 0;
+  }
+  .loginForm label {
+    font-size: 1rem;
+  }
+  .loginForm input {
+    font-size: 12px;
+  }
+  .formButton button {
+    margin: 1.5rem;
+  }
+  .signUpButtonInLoginPage button {
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  .navLogo {
+    position: relative;
+    left: 14px;
+  }
+  .navLogo img {
+    width: 4vh;
+    height: 4vh;
+  }
+  .yourProfile {
+    position: relative;
+    right: 14px;
+  }
+  .yourProfile img {
+    width: 4vh;
+    height: 4vh;
+  }
+  .searchBarForm {
+    width: 11rem;
+    height: 25px;
+  }
+  .searchBarForm input {
+    font-size: 12px;
+  }
+  .searchBarButton {
+    font-size: 10px;
+    width: 3rem;
+  }
+  .mainContainer {
+    position: relative;
+  }
+  .contentContainer {
+    position: absolute;
+    width: 100%;
+    padding: 0 1rem;
+    justify-content: center;
+    margin: 0;
+    overflow-x: hidden;
+    height: 100%;
+  }
+  .allFetchedVideos {
+    padding: 0;
+    width: 100%;
+  }
+  .allFetchedVideos .contentThumbnail {
+    width: 100%;
+    height: 9rem;
+  }
+  .videoDescription h3 {
+    font-size: 1rem;
+  }
+  .videoDescription p {
+    font-size: 11px;
+  }
+  .sidebarToggleButton {
+    display: flex;
+    width: 100%;
+  }
+  .activeToggleButton {
+    left: 13.8rem;
+  }
+  .sideBarToggleContainer {
+    height: 2.3rem;
+    width: 2rem;
+    z-index: 10;
+  }
+  .sideBarContainer {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    padding: 0;
+    padding-top: 3.4rem;
+    z-index: 900;
+  }
+  .sideBarContainer.hide {
+    display: none;
+  }
+  .sidebarToggleButton {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .videoContent {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 1rem 0;
+    margin-top: 2rem;
+    gap: 20px;
+  }
+  .subscribeButtonInVideoPlayer {
+    margin-left: 5px;
+  }
+  .subscribeButtonInVideoPlayer button {
+    width: 5rem;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    margin-left: 0;
+  }
+  .toggleCommentsButton {
+    display: block;
+    margin: 0 1rem 1rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid orange;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .contentContainer.fullWidth .sideVideoContentContainer {
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    overflow: hidden;
+    margin: 0rem;
+  }
+  .videoPlayerContainer {
+    margin: 0;
+    width: 100%;
+    height: 14rem;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .videoPlayer {
+    height: 100%;
+  }
+  .sideVideoContentContainer {
+    margin: 0;
+    width: 100%;
+    height: fit-content;
+  }
+  .sideVideoContents {
+    margin: 0;
+    padding: 5px 0;
+  }
+  .videoPlayer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #000;
+  }
+  .channelPage {
+    padding: 2.5rem 0 0;
+    width: 100%;
+  }
+  .coverImageOfChannel {
+    height: 13rem;
+  }
+  .channelLogo {
+    width: 35px;
+    height: 35px;
+  }
+  .contentDescription .channelLogo {
+    width: 30px;
+    height: 30px;
+  }
+  .coverImageOfChannel .channelLogo {
+    top: 7rem;
+    left: 10px;
+    width: 4rem;
+    height: 4rem;
+  }
+  .channelNameAndSubscribers {
+    margin-top: 1rem;
+    padding-left: 5rem;
+  }
+  .channelNameAndSubscribers h2 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .channelNameAndSubscribers p {
+    font-size: 10px;
+  }
+  .userHistoryPage {
+    padding: 2.5rem 0;
+  }
+  .userHistory h1 {
+    font-size: 1rem;
+  }
+  .userHistory .videoContent {
+    padding: 5px 0;
+    margin: 0;
+  }
+  .searchContainer {
+    padding: 2rem 0;
+  }
+  .videoOfSearchResult {
+    height: 150px;
+  }
+  .videoOfSearchResult img {
+    width: 15rem;
+    height: 100%;
+  }
+  .videoDetailsOfSearchResult {
+    padding: 10px 0;
+  }
+  .videoNameAndDescription h3 {
+    font: 1.2rem;
+  }
+  .videoNameAndDescription p {
+    font-size: 14px;
+  }
+  .videoDetailsOfSearchResult p {
+    margin: 8px 0;
+  }
+  .channelDetailOfSearchResult img {
+    width: 35px;
+    height: 35px;
+  }
+  .videoDescription {
+    padding-left: 16px;
+    margin-right: 10px;
+  }
+  .videoDescription h3 {
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 5px;
+  }
+  .searchResultFromDatabase h2 {
+    font-size: 1rem;
+  }
+  .videoOfSearchResult {
+    gap: 10px;
+    height: 100px;
+  }
+  .videoOfSearchResult img {
+    width: 50%;
+  }
+  .videoDetailsOfSearchResult {
+    padding: 5px 0;
+  }
+  .videoDetailsOfSearchResult p {
+    font-size: 12px;
+  }
+  .videoNameAndDescription h3 {
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .videoNameAndDescription p {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .channelDetailOfSearchResult img {
+    width: 23px;
+    height: 23px;
+  }
+  .videoInfo h2 {
+    font-size: 1rem;
+  }
+  .videoPlayerChannelLogo {
+    width: 30px;
+    height: 30px;
+  }
+  .aboutOwnerAndSubscribers {
+    margin-left: 1rem;
+  }
+  .aboutOwnerAndSubscribers h3 {
+    padding: 0;
+    font-size: 14px;
+  }
+  .aboutOwnerAndSubscribers p {
+    padding: 5px 0 0;
+    font-size: 10px;
+  }
+  .videoLikes button {
+    height: 25px;
+    width: 50px;
+    font-size: 10px;
+    margin-right: 14px;
+  }
+  .VideoPlayerDescriptionSection {
+    margin-top: 14px;
+    padding: 5px 10px 5px 10px;
+  }
+  .VideoPlayerDescriptionSection p {
+    margin: 6px 0;
+    font-size: 11px;
+  }
+  .commentSectionOfVideoPlayer {
+    margin: 14px 0;
+  }
+  .commentWrittenByYou {
+    margin: 7px 0;
+    padding: 0 5px;
+  }
+  .yourCommentLogo {
+    margin: 0 0 0 5px;
+    width: 30px;
+    height: 30px;
+  }
+  .commentInput input {
+    padding: 5px;
+    font-size: 12px;
+    width: 92%;
+    margin: 0 7px;
+  }
+  .commentButton button {
+    width: 50px;
+    height: 25px;
+    margin-right: 5px;
+    font-size: 10px;
+  }
+  .toggleCommentsButton {
+    margin: 5px;
+    font-size: 12px;
+  }
+  .sideVideos {
+    gap: 10px;
+  }
+  .sideVideoThumbnail {
+    width: 50%;
+    height: 80px;
+  }
+  .sideVideosDetails {
+    padding: 10px 0;
+  }
+  .sideVideosDetails {
+    padding: 5px 0;
+  }
+  .sideVideosDetails h3 {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  .channelInfo {
+    padding: 0;
+  }
+  .coverImageOfChannel {
+    height: 9rem;
+  }
+  .publishButtonInChannel {
+    padding-right: 2rem;
+  }
+  .publishButtonInChannel button {
+    width: 4rem;
+    font-size: 10px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .publishVideoOfChannel {
+    height: 95%;
+  }
+  .publishVideoOfChannel form {
+    gap: 5px;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .publishVideoOfChannel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .publishVideoOfChannel form label {
+    font-size: 14px;
+    margin-top: 1rem;
+  }
+  .publishVideoOfChannel form input {
+    font-size: 12px;
+    width: 85%;
+    padding: 5px;
+  }
+  .publishVideoOfChannel form button {
+    width: 5rem;
+    font-size: 13px;
+  }
+  .commentOwnerLogo {
+    margin-left: 0;
+    width: 30px;
+    height: 30px;
+  }
+  .commentTextSection {
+    margin-left: 12px;
+  }
+  .commentUserName h3 {
+    font-size: 14px;
+  }
+  .peopleCommentsMassage {
+    font-size: 10px;
+  }
+  .commentActions {
+    width: 80%;
+  }
+  .commentActions button {
+    height: 25px;
+    width: 3rem;
+    font-size: 10px;
+  }
+  .allCommentOnThisVideo {
+    padding: 4px 10px;
+  }
+  .editCommentSection {
+    gap: 5px;
+  }
+  .editCommentSection input {
+    padding: 5px;
+    font-size: 10px;
+  }
+  .editCommentSection button {
+    font-size: 10px;
+    width: 3rem;
+    height: 25px;
+  }
+  .aboutChannel a {
+    font-size: 10px;
+  }
+  .channelVideoContainer h3 {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .publishPage {
+    padding: 0;
+  }
+  .publishVideoOfChannel form .videoDescriptionTextArea {
+    width: 85%;
+  }
+  video.filePreview {
+    margin-top: 2rem;
+    width: 250px;
+  }
+  .filePreviewContainer {
+    height: 220px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+  }
+  .filePreviewContainerImage {
+    height: 130px;
+  }
+  .filePreviewContainer input {
+    margin: 0;
+  }
+  .filePreviewContainer img {
+    margin-top: 2rem;
+    width: 250px;
+  }
+}
+
+/* MEDIA QUERIES FOR MOBILE DEVICES END */
+
+/* MEDIA QUERIES END */
+
+/* Center the content of the page */
+.helpPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 9vh);
+  color: orange;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Style the heading */
+.helpPageContainer h2 {
+  color: orange;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Input and textarea styling */
+.helpPageContainer input,
+.helpPageContainer textarea {
+  width: 100%;
+  max-width: 500px;
+  background: transparent;
+  color: white;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  outline: none;
+  /* color: #333; */
+}
+
+/* Input focus effect (no outline, bottom border color change) */
+.helpPageContainer input:focus,
+.helpPageContainer textarea:focus {
+  border-bottom: 2px solid orange;
+}
+
+/* Button styling */
+.helpPageContainer button {
+  background-color: orange;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.helpPageContainer button:hover {
+  background-color: darkorange;
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+  .helpPageContainer h2 {
+    font-size: 2rem;
+  }
+
+  .helpPageContainer input,
+  .helpPageContainer textarea {
+    font-size: 0.9rem;
+  }
+
+  .helpPageContainer button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .helpPageContainer h2 {
+    font-size: 1.8rem;
+  }
+
+  .helpPageContainer input,
+  .helpPageContainer textarea {
+    font-size: 0.8rem;
+  }
+
+  .helpPageContainer button {
+    font-size: 0.8rem;
+  }
+}
+
+/* Center the content of the page */
+.feedbackPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 9vh);
+  color: white;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Style the heading */
+.feedbackPageContainer h2 {
+  color: orange;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Input and textarea styling */
+.feedbackPageContainer input,
+.feedbackPageContainer textarea {
+  width: 100%;
+  max-width: 500px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  outline: none;
+  color: white;
+}
+
+/* Input focus effect (no outline, bottom border color change) */
+.feedbackPageContainer input:focus,
+.feedbackPageContainer textarea:focus {
+  border-bottom: 2px solid orange;
+}
+
+/* Button styling */
+.feedbackPageContainer button {
+  background-color: orange;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.feedbackPageContainer button:hover {
+  background-color: darkorange;
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+  .feedbackPageContainer h2 {
+    font-size: 2rem;
+  }
+
+  .feedbackPageContainer input,
+  .feedbackPageContainer textarea {
+    font-size: 0.9rem;
+  }
+
+  .feedbackPageContainer button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feedbackPageContainer h2 {
+    font-size: 1.8rem;
+  }
+
+  .feedbackPageContainer input,
+  .feedbackPageContainer textarea {
+    font-size: 0.8rem;
+  }
+
+  .feedbackPageContainer button {
+    font-size: 0.8rem;
+  }
+}
