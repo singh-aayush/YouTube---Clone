@@ -50,10 +50,50 @@ git clone https://github.com/your-username/youtube-clone.git
 cd youtube-clone
 ```
 
-## Backend Setup
+### 2. Backend Setup
 
+Go into the backend directory and install the dependencies:
 ```bash
 cd backend
 npm install
 ```
 
+### 3. Configure Environment Variables
+
+Create a .env file in the backend directory with the following content:
+```bash
+MONGO_URI=<your-mongo-db-uri>
+JWT_SECRET=<your-jwt-secret>
+CLIENT_URL=<frontend-url>
+```
+Replace <your-mongo-db-uri>, <your-jwt-secret>, and <frontend-url> with your actual MongoDB connection string, JWT secret, and frontend URL, respectively.
+
+### 4. Frontend Setup
+
+Go into the frontend directory and install the dependencies:
+```bash
+cd ../frontend
+npm install
+```
+
+## Running the Application
+
+### 1. Run the Backend
+
+In the backend directory, start the backend server:
+```bash
+cd backend
+npm run dev
+```
+
+### 2. Run the Frontend
+
+In the frontend directory, start the frontend development server:
+```bash
+cd ../frontend
+npm run dev
+```
+
+## Access the Application
+
+Open http://localhost:PORT in your browser to access the app.
