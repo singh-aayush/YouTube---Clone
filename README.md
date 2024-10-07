@@ -48,3 +48,8 @@ To run the project locally, follow these steps:
 ```bash
 git clone https://github.com/your-username/youtube-clone.git
 cd youtube-clone
+
+```bash
+cd backend
+npm install
+
