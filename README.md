@@ -43,8 +43,8 @@ To run the project locally, follow these steps:
 - Node.js v14+ installed
 - MongoDB setup (locally or cloud-based like MongoDB Atlas)
 
-### Installation
+#### 1. Clone the repository
 
-1. **Clone the repository**:
-   ```bash cd backend
-npm install
+```bash
+git clone https://github.com/your-username/youtube-clone.git
+cd youtube-clone
