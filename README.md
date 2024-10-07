@@ -47,4 +47,4 @@ To run the project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash cd backend
-npm install```
+npm install
