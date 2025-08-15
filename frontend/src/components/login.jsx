@@ -31,8 +31,6 @@ function Login({ onLoginSuccess, onToggleSignup }) {
       localStorage.setItem("sessionId", sessionId);
 
       if (onLoginSuccess) onLoginSuccess();
-      console.log('get', localStorage.getItem(accessToken))
-      console.log("get2", localStorage.getItem('accessToken'))
 
       navigate("/");
     } catch (error) {
