@@ -29,6 +29,179 @@
 
 /* Navbar Styling */
 
+        /* General container styling for the signup form */
+        .signUpBody {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          background-color: #f3f4f6; /* Light gray background */
+        }
+
+        /* Signup container */
+        .signupContainer {
+          background-color: #ffffff;
+          padding: 2rem;
+          border-radius: 0.5rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 28rem; /* 448px */
+        }
+
+        /* File input container for avatar */
+        #avatar-upload + label {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          background-color: #3b82f6; /* Blue for avatar */
+          color: #ffffff;
+          border-radius: 0.375rem; /* Rounded-md */
+          cursor: pointer;
+          transition: background-color 0.2s ease-in-out;
+          font-size: 0.875rem; /* Text-sm */
+          font-weight: 500; /* Medium */
+        }
+
+        #avatar-upload + label:hover {
+          background-color: #2563eb; /* Darker blue on hover */
+        }
+
+        #avatar-upload:focus + label {
+          outline: 2px solid #3b82f6;
+          outline-offset: 2px;
+        }
+
+        /* Avatar preview styling */
+        .avatar-preview {
+          margin-left: 1rem;
+          height: 4rem; /* h-16 */
+          width: 4rem; /* w-16 */
+          object-fit: cover;
+          border-radius: 9999px; /* Full rounded for avatar */
+          border: 2px solid #e5e7eb; /* Light gray border */
+        }
+
+        /* File input container for cover image */
+        #cover-image-upload + label {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          background-color: #10b981; /* Green for cover image */
+          color: #ffffff;
+          border-radius: 0.375rem; /* Rounded-md */
+          cursor: pointer;
+          transition: background-color 0.2s ease-in-out;
+          font-size: 0.875rem; /* Text-sm */
+          font-weight: 500; /* Medium */
+        }
+
+        #cover-image-upload + label:hover {
+          background-color: #059669; /* Darker green on hover */
+        }
+
+        #cover-image-upload:focus + label {
+          outline: 2px solid #10b981;
+          outline-offset: 2px;
+        }
+
+        /* Cover image preview styling */
+        .cover-image-preview {
+          margin-left: 1rem;
+          height: 4rem; /* h-16 */
+          width: 8rem; /* w-32 */
+          object-fit: cover;
+          border-radius: 0.375rem; /* Rounded-md */
+          border: 2px solid #e5e7eb; /* Light gray border */
+        }
+
+        /* Error and success messages */
+        .error {
+          color: #ef4444; /* Red-500 */
+          text-align: center;
+          margin-bottom: 1rem;
+          font-size: 0.875rem;
+        }
+
+        .success {
+          color: #10b981; /* Green-500 */
+          text-align: center;
+          margin-bottom: 1rem;
+          font-size: 0.875rem;
+        }
+
+        /* Form input styling */
+        .signupContainer input[type="text"],
+        .signupContainer input[type="email"],
+        .signupContainer input[type="password"] {
+          margin-top: 0.25rem;
+          display: block;
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #d1d5db; /* Gray-300 */
+          border-radius: 0.375rem;
+          font-size: 0.875rem;
+        }
+
+        .signupContainer input:focus {
+          outline: none;
+          ring: 2px solid #3b82f6; /* Blue-300 */
+          ring-offset: 2px;
+        }
+
+        .signupContainer label {
+          display: block;
+          font-size: 0.875rem; /* Text-sm */
+          font-weight: 500; /* Medium */
+          color: #374151; /* Gray-700 */
+        }
+
+        /* Form button styling */
+        .formButton button {
+          background-color: #10b981; /* Green-500 */
+          color: #ffffff;
+          padding: 0.5rem 1.5rem;
+          border-radius: 0.375rem;
+          width: 100%;
+          font-size: 1rem;
+          font-weight: 500;
+          transition: background-color 0.2s ease-in-out;
+        }
+
+        .formButton button:hover {
+          background-color: #059669; /* Green-600 */
+        }
+
+        /* Toggle login button */
+        .toggleButton {
+          color: #3b82f6; /* Blue-500 */
+          font-weight: 500;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+        }
+
+        .toggleButton:hover {
+          text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+          .signupContainer {
+            padding: 1.5rem;
+            margin: 0 1rem;
+          }
+
+          .avatar-preview,
+          .cover-image-preview {
+            margin-left: 0.5rem;
+            height: 3rem;
+          }
+
+          .cover-image-preview {
+            width: 6rem;
+          }
+        }
+
+
 .navbar {
   width: 100%;
   position: fixed;
