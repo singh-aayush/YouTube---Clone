@@ -1,5 +1,8 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,7 +12,7 @@ cloudinary.config({
 
 const uploadOnCloudinary = async function (localFilePath) {
   try {
-    if (!fs.existsSync(localFilePath)) {
+    if (!localFilePath || !fs.existsSync(localFilePath)) {
       throw new apiError(400, "Video file does not exist.");
     }
     if (!localFilePath) return null;
@@ -19,7 +22,10 @@ const uploadOnCloudinary = async function (localFilePath) {
     fs.unlinkSync(localFilePath);
     return uploadFile;
   } catch (error) {
-    fs.unlinkSync(localFilePath); // compulsary to remove file from local file system....
+    if (localFilePath && fs.existsSync(localFilePath)) {
+      fs.unlinkSync(localFilePath);
+    }
+    console.error("Cloudinary Upload Error:", error);
     return null;
   }
 };

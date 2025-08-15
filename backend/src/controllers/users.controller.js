@@ -3,13 +3,14 @@ import { apiError } from "../utils/ApiErrors.js";
 import { generateSessionId } from "../utils/regenerateSessionId.js";
 import { User } from "../models/User.model.js";
 import { Channel } from "../models/channel.model.js";
-import { video } from "../models/Video.model.js";
+// import { video } from "../models/Video.model.js";
+import path from "path";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
-import { channel } from "diagnostics_channel";
-import { subscribers } from "../models/subscription.model.js";
-import mongoose, { Schema } from "mongoose";
+// import { channel } from "diagnostics_channel";
+// import { subscribers } from "../models/subscription.model.js";
+// import mongoose, { Schema } from "mongoose";
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -29,42 +30,50 @@ const registerUser = asyncHandler(async (req, res) => {
   try {
     const { fullName, email, password, userName } = req.body;
 
+    // Basic field validation
     if (
       [fullName, email, password, userName].some(
-        (field) => field?.trim() === ""
+        (field) => !field || field.trim() === ""
       )
     ) {
       throw new apiError(400, "All Fields are required");
     }
 
+    // Check for existing user
     const existingUser = await User.findOne({ $or: [{ userName }, { email }] });
     if (existingUser) {
       throw new apiError(409, "User is already registered!!");
     }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path;
-    let coverImageLocalPath;
-    if (
-      req.files &&
-      Array.isArray(req.files.coverImage) &&
-      req.files.coverImage.length > 0
-    ) {
-      coverImageLocalPath = req.files.coverImage[0].path;
+    // Safe file access
+const avatarLocalPath = req.files?.avatar?.[0]?.path 
+  ? path.resolve(req.files.avatar[0].path) // makes it absolute
+  : null;
+
+const coverImageLocalPath = req.files?.coverImage?.[0]?.path
+  ? path.resolve(req.files.coverImage[0].path)
+  : null;
+
+
+    // Upload avatar if provided, else use default avatar
+    let avatarUploadCloudinary = null;
+    if (avatarLocalPath) {
+      avatarUploadCloudinary = await uploadOnCloudinary(avatarLocalPath);
+      if (!avatarUploadCloudinary) {
+        throw new apiError(500, "Something went wrong in uploading Avatar!");
+      }
     }
 
-    if (!avatarLocalPath) {
-      throw new apiError(400, "Avatar is must required!");
+    // Upload cover image if provided
+    let coverImageUploadCloudinary = null;
+    if (coverImageLocalPath) {
+      coverImageUploadCloudinary = await uploadOnCloudinary(coverImageLocalPath);
+      if (!coverImageUploadCloudinary) {
+        throw new apiError(500, "Something went wrong in uploading Cover Image!");
+      }
     }
 
-    const avatarUploadCloudinary = await uploadOnCloudinary(avatarLocalPath);
-    const coverImageUploadCloudinary = coverImageLocalPath
-      ? await uploadOnCloudinary(coverImageLocalPath)
-      : null;
-
-    if (!avatarUploadCloudinary) {
-      throw new apiError(500, "Something went wrong in Uploading!");
-    }
-
+    // Create user
     const user = await User.create({
       fullName,
       email,
@@ -74,6 +83,7 @@ const registerUser = asyncHandler(async (req, res) => {
       userName: userName.toLowerCase(),
     });
 
+    // Create channel
     const newChannel = await Channel.create({
       avatar: avatarUploadCloudinary.url,
       coverImage: coverImageUploadCloudinary?.url || "",
@@ -104,6 +114,7 @@ const registerUser = asyncHandler(async (req, res) => {
       .json({ message: error.message || "Internal Server Error" });
   }
 });
+
 
 const loginUser = asyncHandler(async (req, res) => {
   try {
