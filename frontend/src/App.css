@@ -52,17 +52,14 @@
         #avatar-upload + label {
           display: inline-block;
           padding: 0.5rem 1rem;
-          background-color: #3b82f6; /* Blue for avatar */
-          color: #ffffff;
+          background-color: orange; /* Blue for avatar */
+          color: black;
           border-radius: 0.375rem; /* Rounded-md */
           cursor: pointer;
+          border: 1px solid white;
           transition: background-color 0.2s ease-in-out;
           font-size: 0.875rem; /* Text-sm */
           font-weight: 500; /* Medium */
-        }
-
-        #avatar-upload + label:hover {
-          background-color: #2563eb; /* Darker blue on hover */
         }
 
         #avatar-upload:focus + label {
@@ -84,17 +81,14 @@
         #cover-image-upload + label {
           display: inline-block;
           padding: 0.5rem 1rem;
-          background-color: #10b981; /* Green for cover image */
-          color: #ffffff;
+          background-color: orange; /* Green for cover image */
+          color: black;
           border-radius: 0.375rem; /* Rounded-md */
           cursor: pointer;
+          border: 1px solid white;
           transition: background-color 0.2s ease-in-out;
           font-size: 0.875rem; /* Text-sm */
           font-weight: 500; /* Medium */
-        }
-
-        #cover-image-upload + label:hover {
-          background-color: #059669; /* Darker green on hover */
         }
 
         #cover-image-upload:focus + label {
@@ -136,9 +130,10 @@
           width: 100%;
           padding: 0.5rem;
           font-size: 0.875rem;
-              background: rgb(149, 120, 120);
+              background: transparent;
+              padding-bottom: 0px;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 2px solid orange;
     border-radius: 0px;
     color: orange;
         }
@@ -159,11 +154,11 @@
           border: 1px solid white;
         }
 
-        .avatar-upload{
+        #avatar-upload{
           display: none;
         }
 
-        .cover-image-upload{
+        #cover-image-upload{
           display: none;
         }
 
@@ -171,28 +166,27 @@
           display: block;
           font-size: 0.875rem; /* Text-sm */
           font-weight: 500; /* Medium */
-          color: orange; /* Gray-700 */
+          position: relative;
+          left: -1rem;
+          color: white; /* Gray-700 */
         }
 
         /* Form button styling */
         .formButton button {
-          background-color: #10b981; /* Green-500 */
-          color: #ffffff;
+          background-color: orange; /* Green-500 */
+          color: black;
           padding: 0.5rem 1.5rem;
           border-radius: 0.375rem;
           width: 100%;
+          border: 1px solid white;
           font-size: 1rem;
           font-weight: 500;
           transition: background-color 0.2s ease-in-out;
         }
 
-        .formButton button:hover {
-          background-color: #059669; /* Green-600 */
-        }
-
         /* Toggle login button */
         .toggleButton {
-          color: #3b82f6; /* Blue-500 */
+          color: orange; /* Blue-500 */
           font-weight: 500;
           background: none;
           border: none;
@@ -658,22 +652,21 @@ a{
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .signUpButtonInLoginPage button {
-  border: 1px solid white;
-  padding: 9px;
-  background-color: transparent;
-  border-radius: 8px;
-  margin-top: 0px;
-  outline: none;
-  color: white;
-  font-weight: bold;
-  width: 5rem;
-  cursor: pointer;
-  text-decoration: none;
+  color: orange;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
+
+.signUpButtonInLoginPage button:hover {
+          text-decoration: underline;
+        }
 
 .signUpButtonInLoginPage p {
   margin-top: 0px;
