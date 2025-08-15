@@ -10,7 +10,20 @@ function VideoPage() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/v1/video/${currentVideoId}`);
+        const token = localStorage.getItem("accessToken"); // Get token from localStorage
+        if (!token) {
+          console.error("Access token not found");
+          return;
+        }
+
+        const response = await axios.get(
+          `${API_BASE_URL}/api/v1/video/${currentVideoId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add token to headers
+            },
+          }
+        );
         setVideoData(response.data.data);
       } catch (error) {
         console.error("Failed to fetch video data:", error);

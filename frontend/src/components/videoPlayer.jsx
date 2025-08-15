@@ -19,14 +19,24 @@ function VideoPlayer() {
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [error, setError] = useState("");
-  // const videoId = window.location.pathname.split("/")[2];
   const { videoId } = useParams();
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("accessToken"); // Get token from localStorage
 
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/v1/video/${videoId}`);
+        if (!token) {
+          console.error("Access token not found");
+          setError("Authentication required");
+          return;
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/api/v1/video/${videoId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        });
         const fetchedVideo = response.data.data;
 
         if (fetchedVideo.owner) {
@@ -68,7 +78,15 @@ function VideoPlayer() {
 
   const fetchComments = async (page) => {
     try {
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
       const response = await axios.get(`${API_BASE_URL}/api/v1/comment/${videoId}/comments`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to headers
+        },
         params: { page, limit: 40 },
       });
 
@@ -108,7 +126,16 @@ function VideoPlayer() {
   const checkSubscription = async (channelId) => {
     if (!channelId) return false;
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/v1/subscription/u/${channelId}`);
+      if (!token) {
+        console.error("Access token not found");
+        return false;
+      }
+
+      const response = await axios.get(`${API_BASE_URL}/api/v1/subscription/u/${channelId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to headers
+        },
+      });
       return response.data.message === "Subscribed";
     } catch (error) {
       console.log("Failed to check subscription status:", error);
@@ -125,6 +152,12 @@ function VideoPlayer() {
     }
 
     try {
+      if (!token) {
+        console.error("Access token not found");
+        setError("Authentication required");
+        return;
+      }
+
       const videoOwnerChannelId = video?.owner?.channel;
       if (!videoOwnerChannelId) {
         console.error("Video owner's Channel ID not found");
@@ -143,7 +176,13 @@ function VideoPlayer() {
       }));
 
       const response = await axios.post(
-        `${API_BASE_URL}/api/v1/subscription/toggle/${videoOwnerChannelId}`
+        `${API_BASE_URL}/api/v1/subscription/toggle/${videoOwnerChannelId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        }
       );
 
       if (response.status === 200) {
@@ -169,7 +208,20 @@ function VideoPlayer() {
       return;
     }
 
-    axios.post(`${API_BASE_URL}/api/v1/video/views`, { videoId, sessionId }).catch((error) => {
+    if (!token) {
+      console.error("Access token not found");
+      return;
+    }
+
+    axios.post(
+      `${API_BASE_URL}/api/v1/video/views`,
+      { videoId, sessionId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to headers
+        },
+      }
+    ).catch((error) => {
       console.error("Failed to track video view", error);
     });
   };
@@ -182,10 +234,23 @@ function VideoPlayer() {
         return;
       }
 
-      const response = await axios.post(`${API_BASE_URL}/api/v1/comment/${videoId}/comments`, {
-        content: commentText,
-        sessionId,
-      });
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
+      const response = await axios.post(
+        `${API_BASE_URL}/api/v1/comment/${videoId}/comments`,
+        {
+          content: commentText,
+          sessionId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        }
+      );
 
       if (response.data.statuscode === 201 && response.data.success) {
         setComments([]);
@@ -209,9 +274,22 @@ function VideoPlayer() {
 
   const handleEditComment = async (commentId) => {
     try {
-      const response = await axios.patch(`${API_BASE_URL}/api/v1/comment/c/${commentId}`, {
-        content: editedCommentText,
-      });
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
+      const response = await axios.patch(
+        `${API_BASE_URL}/api/v1/comment/c/${commentId}`,
+        {
+          content: editedCommentText,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        }
+      );
 
       if (response.status === 200) {
         setComments((prevComments) =>
@@ -229,7 +307,16 @@ function VideoPlayer() {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/api/v1/comment/c/${commentId}`);
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
+      const response = await axios.delete(`${API_BASE_URL}/api/v1/comment/c/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to headers
+        },
+      });
 
       if (response.status === 200) {
         setComments((prevComments) =>
@@ -257,7 +344,20 @@ function VideoPlayer() {
 
   const handleLikeVideo = async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/v1/like/toggle/v/${videoId}`);
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
+      const response = await axios.post(
+        `${API_BASE_URL}/api/v1/like/toggle/v/${videoId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Update the video state to reflect the new like count
@@ -277,7 +377,20 @@ function VideoPlayer() {
 
   const handleLikeComment = async (commentId) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/v1/like/toggle/c/${commentId}`);
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
+      const response = await axios.post(
+        `${API_BASE_URL}/api/v1/like/toggle/c/${commentId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Update the comments state to reflect the new like count

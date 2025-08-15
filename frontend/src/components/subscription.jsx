@@ -10,20 +10,25 @@ function Subscription() {
     const fetchSubscribedChannels = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("accessToken"); // use accessToken consistently
+        if (!token) {
+          console.error("Access token not found");
+          setLoading(false);
+          return;
+        }
+
         const response = await axios.get(
           `${API_BASE_URL}/api/v1/subscription/u/subscribedChannels`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // attach token
             },
           }
         );
-        // console.log("Fetched channels:", response.data.data); // Check the structure here
-        // console.log("subs", response.data.data.channel);
+
         setSubscribedChannel(response.data.data);
       } catch (error) {
-        console.log("Failed to fetch subscribed channels", error);
+        console.error("Failed to fetch subscribed channels", error);
       } finally {
         setLoading(false);
       }
@@ -38,16 +43,16 @@ function Subscription() {
         <p>Loading....</p>
       ) : subscribedChannel.length > 0 ? (
         subscribedChannel.map((mySubscribed) => (
-          <div className="subscribedChannels">
+          <div key={mySubscribed._id} className="subscribedChannels">
             <div className="subscribedChannelLogo">
               <img
-                src={mySubscribed.channel?.avatar}
-                alt={mySubscribed.channel?.userName}
+                src={mySubscribed.channel?.avatar || "default-avatar.png"}
+                alt={mySubscribed.channel?.userName || "Channel"}
               />
             </div>
             <div className="subscribedChannelDetails">
-              {/* <h3>{mySubscribed.channel.userName}</h3>
-              <p>{mySubscribed.channel.subscribers} Subscribers</p> */}
+              <h3>{mySubscribed.channel?.userName}</h3>
+              <p>{mySubscribed.channel?.subscribers?.length || 0} Subscribers</p>
             </div>
           </div>
         ))

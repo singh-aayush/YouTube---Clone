@@ -11,24 +11,34 @@ function VideoContent() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`${API_BASE_URL}/api/v1/video`)
-      .then((response) => {
+    const fetchVideos = async () => {
+      try {
+        const token = localStorage.getItem("accessToken"); // Use accessToken for auth
+        if (!token) {
+          console.error("Access token not found");
+          setError("You are not authorized to view videos");
+          return;
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/api/v1/video`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         setVideoData(response.data.data);
-      })
-      .catch((error) => {
-        console.log("error fetching", error);
+      } catch (error) {
+        console.error("error fetching", error);
         setError("Failed to fetch video data");
-      });
+      }
+    };
+
+    fetchVideos();
 
     const avatar = localStorage.getItem("userAvatar");
     const channelName = localStorage.getItem("name");
-    if (avatar) {
-      setUserAvatar(avatar);
-    }
-    if (channelName) {
-      setUserChannelName(channelName);
-    }
+    if (avatar) setUserAvatar(avatar);
+    if (channelName) setUserChannelName(channelName);
   }, []);
 
   const handleThumbnailClick = async (videoId) => {
@@ -39,11 +49,21 @@ function VideoContent() {
         return;
       }
 
-      axios
-        .post(`${API_BASE_URL}/api/v1/video/views`, { videoId, sessionId })
-        .catch((error) => {
-          console.error("Failed to track video view", error);
-        });
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
+      await axios.post(
+        `${API_BASE_URL}/api/v1/video/views`,
+        { videoId, sessionId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       Navigate(`/video/${videoId}`);
     } catch (error) {

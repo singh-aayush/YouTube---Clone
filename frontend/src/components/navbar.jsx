@@ -9,9 +9,9 @@ function Navbar() {
   const [userAvatar, setUserAvatar] = useState("");
   const [logoClicked, setLogoClicked] = useState(false);
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  const { logout } = useAuth(); // Destructure logout from the context
+  const { logout } = useAuth();
 
   useEffect(() => {
     const avatar = localStorage.getItem("userAvatar");
@@ -20,15 +20,18 @@ function Navbar() {
     }
   }, []);
 
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("accessToken");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  };
+
   const handleLogout = async () => {
     try {
       await axios.post(
         `${API_BASE_URL}/api/v1/users/logout`,
         {},
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
+          headers: getAuthHeaders(),
         }
       );
 
@@ -37,7 +40,7 @@ function Navbar() {
       localStorage.removeItem("sessionId");
 
       logout();
-      window.location.href = "/login";
+      navigate("/login");
     } catch (error) {
       console.error("Logout Error", error);
     }
@@ -52,23 +55,18 @@ function Navbar() {
     setProfileMenuVisible(!profileMenuVisible);
   };
 
-  // Handle search query input
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Handle form submission
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-
     if (searchQuery.trim()) {
       try {
-        // Make API call to fetch videos based on the search query
         const response = await axios.get(`${API_BASE_URL}/api/v1/video`, {
-          params: { query: searchQuery }, // Send query as part of the request
+          params: { query: searchQuery },
+          headers: getAuthHeaders(),
         });
-
-        // Pass the results to the search results page or display them
         navigate("/search", { state: { videos: response.data.data } });
       } catch (error) {
         console.error("Search Error", error);
@@ -76,10 +74,11 @@ function Navbar() {
     }
   };
 
-  // Fetch all videos when the button is clicked
   const handleFetchAllVideos = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/v1/video`);
+      const response = await axios.get(`${API_BASE_URL}/api/v1/video`, {
+        headers: getAuthHeaders(),
+      });
       navigate("/search", { state: { videos: response.data.data } });
       setSearchQuery("");
     } catch (error) {
@@ -92,7 +91,7 @@ function Navbar() {
       <div className={`navbar ${logoClicked ? "logoClicked" : ""}`}>
         <div className="navLogo" onClick={handleLogoClick}>
           <img src={logo} alt="videoTube.logo" />
-          <h2 >FreeTube</h2>
+          <h2>FreeTube</h2>
         </div>
         <div className="searchBar">
           <form className="searchBarForm" onSubmit={handleSearchSubmit}>
@@ -105,9 +104,13 @@ function Navbar() {
               onChange={handleSearchChange}
               autoComplete="off"
             />
-            <button className="searchBarButton" onClick={handleFetchAllVideos}>
+            <button
+              type="button"
+              className="searchBarButton"
+              onClick={handleFetchAllVideos}
+            >
               Search
-            </button>{" "}
+            </button>
           </form>
         </div>
         <div className="yourProfile">

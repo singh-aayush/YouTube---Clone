@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../config/api";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function Channel() {
   const { channelId } = useParams();
@@ -18,10 +17,25 @@ function Channel() {
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const Navigate = useNavigate();
 
+  // Fetch channel data with token authentication
   useEffect(() => {
     const fetchChannelData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/v1/channel/${channelId}`);
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          console.error("Access token not found");
+          return;
+        }
+
+        const response = await axios.get(
+          `${API_BASE_URL}/api/v1/channel/${channelId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
         setChannel(response.data.data);
       } catch (error) {
         console.error("Failed to fetch channel data:", error);
@@ -40,14 +54,10 @@ function Channel() {
 
     if (name === "videoFile") {
       setVideoFile(files[0]);
-      if (files[0]) {
-        setVideoPreview(URL.createObjectURL(files[0]));
-      }
+      if (files[0]) setVideoPreview(URL.createObjectURL(files[0]));
     } else if (name === "thumbnail") {
       setThumbnailFile(files[0]);
-      if (files[0]) {
-        setThumbnailPreview(URL.createObjectURL(files[0]));
-      }
+      if (files[0]) setThumbnailPreview(URL.createObjectURL(files[0]));
     }
   };
 
@@ -58,6 +68,7 @@ function Channel() {
     };
   }, [videoPreview, thumbnailPreview]);
 
+  // Publish video with token authentication
   const handlePublishVideo = async (e) => {
     e.preventDefault();
     if (!videoFile || !thumbnailFile || !videoTitle || !videoDescription) {
@@ -73,9 +84,17 @@ function Channel() {
 
     try {
       setUploading(true);
+
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
+
       const response = await axios.post(`${API_BASE_URL}/api/v1/video`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -85,7 +104,7 @@ function Channel() {
         setVideoDescription("");
         setVideoFile(null);
         setThumbnailFile(null);
-        setShowPublishForm(false); // Hide form after successful publish
+        setShowPublishForm(false);
       }
     } catch (error) {
       console.error("Failed to publish video:", error);
@@ -94,11 +113,11 @@ function Channel() {
     }
   };
 
-  const handleThumbnailClick = async (e) => {
+  const handleThumbnailClick = (videoId) => {
     try {
-      Navigate(`/video/${e}`);
+      Navigate(`/video/${videoId}`);
     } catch (error) {
-      console.log("Error in finding the video by it's id", error);
+      console.log("Error navigating to video:", error);
     }
   };
 
@@ -111,13 +130,11 @@ function Channel() {
               <img
                 src={channel.coverImage || "default-coverImage.png"}
                 alt="Channel coverImage"
-                placeholder="Your cover Image"
               />
               <div className="channelLogo">
                 <img
                   src={channel.avatar || "default-avatar.png"}
                   alt="Channel Avatar"
-                  placeholder="Your avatar"
                 />
               </div>
             </div>
@@ -126,15 +143,11 @@ function Channel() {
               <h2>{channel.userName}</h2>
               <p>{channel.subscribers.length} subscribers</p>
 
-              {/* Button to show the publish form */}
               <div className="publishButtonInChannel">
-                <button onClick={() => setShowPublishForm(true)}>
-                  Publish
-                </button>
+                <button onClick={() => setShowPublishForm(true)}>Publish</button>
               </div>
             </div>
 
-            {/* Conditional rendering of the publish form */}
             {showPublishForm && (
               <div className="publishPage">
                 <div className="publishVideoOfChannel">
@@ -169,7 +182,6 @@ function Channel() {
                       {videoPreview && (
                         <video className="filePreview" controls>
                           <source src={videoPreview} type="video/mp4" />
-                          Your browser does not support the video tag.
                         </video>
                       )}
                     </div>
@@ -204,17 +216,12 @@ function Channel() {
           <p>Loading channel info...</p>
         )}
       </div>
+
       <div className="channelVideos">
         <div className="channelVideoContainer">
           <h3 style={{ color: "white" }}>Your Videos...</h3>
           {channel && channel.videos.length > 0 ? (
             channel.videos.map((video) => (
-              // <div key={video._id} className="videoCard">
-              //   <img src={video.thumbnail} alt={video.title} />
-              //   <h4>{video.title}</h4>
-              //   <p>{video.description}</p>
-              // </div>
-
               <div key={video._id} className="allFetchedVideos">
                 <div
                   className="contentThumbnail"

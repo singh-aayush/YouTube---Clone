@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { API_BASE_URL} from '../config/api'
+import { API_BASE_URL } from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function ContentSideBar({ currentVideoId }) {
@@ -8,33 +8,54 @@ function ContentSideBar({ currentVideoId }) {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`${API_BASE_URL}/api/v1/video`)
-      .then((response) => {
+    const fetchVideos = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          console.error("Access token not found");
+          return;
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/api/v1/video`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         setVideoData(response.data.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log("Error fetching data in ContentSideBar", error);
-      });
+      }
+    };
+
+    fetchVideos();
   }, []);
 
   const handleVideoPlay = async (videoId) => {
     try {
+      const token = localStorage.getItem("accessToken");
       const sessionId = localStorage.getItem("sessionId");
+
+      if (!token) {
+        console.error("Access token not found");
+        return;
+      }
       if (!sessionId) {
         console.error("Session ID not found");
         return;
       }
 
-      // Send the view increment request to the server
-      const response = axios
-        .post(`${API_BASE_URL}/api/v1/video/views`, {
-          videoId,
-          sessionId,
-        })
-        .catch((error) => {
-          console.error("Failed to track video view", error);
-        });
+      // Send the view increment request to the server with token
+      await axios.post(
+        `${API_BASE_URL}/api/v1/video/views`,
+        { videoId, sessionId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       Navigate(`/video/${videoId}`);
     } catch (error) {
       console.error("Failed to track video view", error);
