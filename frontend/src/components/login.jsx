@@ -20,6 +20,8 @@ function Login({ onLoginSuccess, onToggleSignup }) {
       const { accessToken, userAcessToken, sessionId, loggedInUser } = response.data.data;
       const token = accessToken || userAcessToken; // pick whichever exists
 
+      console.log("token", token)
+
       const channelId = loggedInUser.channel;
       localStorage.setItem("channelId", channelId);
       localStorage.setItem("userAvatar", loggedInUser.avatar);
