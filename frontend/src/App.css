@@ -204,10 +204,15 @@
           border: none;
           cursor: pointer;
           padding: 0;
+          margin-left: 5px;
         }
 
         .toggleButton:hover {
           text-decoration: underline;
+        }
+
+        .text-center{
+          width: 100%;
         }
 
         /* Responsive adjustments */
@@ -677,6 +682,10 @@ a{
     padding: 0;
 }
 
+.signUpButtonInLoginPage p{
+  margin: 0px;;
+}
+
 .signUpButtonInLoginPage button:hover {
           text-decoration: underline;
         }
@@ -715,7 +724,7 @@ a{
 }
 
 .loginContainer {
-  width: 60%;
+  width: 50%;
   /* height: 30rem; */
   padding: 20px;
   display: flex;
