@@ -31,6 +31,8 @@ function Login({ onLoginSuccess, onToggleSignup }) {
       localStorage.setItem("sessionId", sessionId);
 
       if (onLoginSuccess) onLoginSuccess();
+      console.log('get', localStorage.getItem(accessToken))
+      console.log("get2", localStorage.getItem('accessToken'))
 
       navigate("/");
     } catch (error) {
@@ -43,8 +45,6 @@ function Login({ onLoginSuccess, onToggleSignup }) {
 
   return (
     <div className="wholeBody">
-  {localStorage.getItem("token", accessToken)}
-
       <div className="loginContainer">
         <h2>Login</h2>
         <div className="loginDetails">
