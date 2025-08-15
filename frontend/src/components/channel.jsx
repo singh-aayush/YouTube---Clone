@@ -110,11 +110,13 @@ function Channel() {
               <img
                 src={channel.coverImage || "default-coverImage.png"}
                 alt="Channel coverImage"
+                placeholder="Your cover Image"
               />
               <div className="channelLogo">
                 <img
                   src={channel.avatar || "default-avatar.png"}
                   alt="Channel Avatar"
+                  placeholder="Your avatar"
                 />
               </div>
             </div>
@@ -238,7 +240,7 @@ function Channel() {
               </div>
             ))
           ) : (
-            <p>No videos published yet.</p>
+            <p className="Video_error_message">No videos published yet.</p>
           )}
         </div>
       </div>

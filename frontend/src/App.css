@@ -53,6 +53,10 @@
   transition: all 0.6s ease;
 }
 
+.navLogo h2{
+  margin-left: 7px;
+}
+
 .navLogo img {
   width: 5vh;
   height: 5vh;
@@ -166,6 +170,10 @@
 
 .profileMenu button:hover {
   background-color: #f1f1f1;
+}
+
+a{
+  text-decoration: none;
 }
 
 /* Navbar Styling End */
@@ -1550,8 +1558,8 @@ img.filePreview {
     font-size: 1rem;
     margin: 14px 0;
   }
-  .channelVideoContainer p {
-    color: orange;
+  .Video_error_message {
+    color: orange !important;
     margin: 0;
   }
   .commentButton {
@@ -1742,6 +1750,10 @@ img.filePreview {
   }
   .searchBarForm {
     width: 30rem;
+  }
+  .searchBar{
+    position: relative;
+    left: 4rem;
   }
   .searchBarForm button {
     width: 4rem;
@@ -1949,8 +1961,12 @@ img.filePreview {
     height: 35px;
   }
   .searchBarForm {
-    width: 24rem;
+    width: 20rem;
     height: 35px;
+  }
+  .searchBar{
+    position: relative;
+    left: 4rem;
   }
   .searchBarForm button {
     width: 4rem;
@@ -2057,6 +2073,9 @@ img.filePreview {
   .navLogo img {
     width: 4vh;
     height: 4vh;
+  }
+  .navLogo h2{
+    display: none;
   }
   .yourProfile {
     position: relative;
@@ -2416,6 +2435,9 @@ img.filePreview {
   .navLogo img {
     width: 4vh;
     height: 4vh;
+  }
+  .navLogo h2{
+    display: none;
   }
   .yourProfile {
     position: relative;

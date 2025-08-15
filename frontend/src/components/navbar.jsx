@@ -91,6 +91,7 @@ function Navbar() {
       <div className={`navbar ${logoClicked ? "logoClicked" : ""}`}>
         <div className="navLogo" onClick={handleLogoClick}>
           <img src={logo} alt="videoTube.logo" />
+          <h2 >FreeTube</h2>
         </div>
         <div className="searchBar">
           <form className="searchBarForm" onSubmit={handleSearchSubmit}>
