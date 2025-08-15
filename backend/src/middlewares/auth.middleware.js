@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
 
 // Standard practice on place of res - we can use "_" ........
-export const verifyJwt = asyncHandler(async (req, _, next) => {
+export const verifyJwt = asyncHandler(async (req, res, next) => {
   try {
     const token =
       req.cookies?.accessToken ||
