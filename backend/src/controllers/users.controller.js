@@ -47,7 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Safe file access
 const avatarLocalPath = req.files?.avatar?.[0]?.path 
-  ? path.resolve(req.files.avatar[0].path) // makes it absolute
+  ? path.resolve(req.files.avatar[0].path) 
   : null;
 
 const coverImageLocalPath = req.files?.coverImage?.[0]?.path
