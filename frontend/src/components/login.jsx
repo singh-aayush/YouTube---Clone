@@ -40,10 +40,11 @@ function Login({ onLoginSuccess, onToggleSignup }) {
     }
   };
 
-  localStorage.getItem("token", accessToken)
 
   return (
     <div className="wholeBody">
+  {localStorage.getItem("token", accessToken)}
+
       <div className="loginContainer">
         <h2>Login</h2>
         <div className="loginDetails">
