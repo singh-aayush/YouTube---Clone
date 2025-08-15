@@ -150,8 +150,16 @@
 
         .cursor-pointer{
           color: black;
+          margin-top: 5px;
           background-color: orange;
-          border: 1px solid white;
+          border: 1px solid black;
+        }
+
+        .text-sm{
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
         }
 
         #avatar-upload{
@@ -160,6 +168,10 @@
 
         #cover-image-upload{
           display: none;
+        }
+
+        .signupContainer p{
+          color: white;
         }
 
         .signupContainer label {
@@ -650,8 +662,9 @@ a{
 .signUpButtonInLoginPage {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
+  align-items: center;
   flex-direction: row;
 }
 
