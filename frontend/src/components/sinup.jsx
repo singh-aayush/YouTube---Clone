@@ -114,7 +114,7 @@ function SignUp({ onToggleLogin }) {
             />
           </div>
           <div>
-            <label>Avatar (Required)</label>
+            <label>Avatar</label>
             <div className="mt-1 flex items-center">
               <input
                 type="file"
@@ -140,7 +140,7 @@ function SignUp({ onToggleLogin }) {
             </div>
           </div>
           <div>
-            <label>Cover Image (Required)</label>
+            <label>Cover Image</label>
             <div className="mt-1 flex items-center">
               <input
                 type="file"
