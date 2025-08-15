@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 function Subscription() {
   const [subscribedChannel, setSubscribedChannel] = useState([]);
@@ -11,7 +12,7 @@ function Subscription() {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `/api/v1/subscription/u/subscribedChannels`,
+          `${API_BASE_URL}/api/v1/subscription/u/subscribedChannels`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

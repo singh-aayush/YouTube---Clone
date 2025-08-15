@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Images-frontend/pngwing.com.png";
 import { useAuth } from "./authcontext.jsx"; // Import the useAuth hook
+import { API_BASE_URL } from "../config/api.js";
 
 function Navbar() {
   const [userAvatar, setUserAvatar] = useState("");
@@ -22,7 +23,7 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "/api/v1/users/logout",
+        `${API_BASE_URL}/api/v1/users/logout`,
         {},
         {
           headers: {
@@ -63,7 +64,7 @@ function Navbar() {
     if (searchQuery.trim()) {
       try {
         // Make API call to fetch videos based on the search query
-        const response = await axios.get(`/api/v1/video`, {
+        const response = await axios.get(`${API_BASE_URL}/api/v1/video`, {
           params: { query: searchQuery }, // Send query as part of the request
         });
 
@@ -78,7 +79,7 @@ function Navbar() {
   // Fetch all videos when the button is clicked
   const handleFetchAllVideos = async () => {
     try {
-      const response = await axios.get(`/api/v1/video`);
+      const response = await axios.get(`${API_BASE_URL}/api/v1/video`);
       navigate("/search", { state: { videos: response.data.data } });
       setSearchQuery("");
     } catch (error) {

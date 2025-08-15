@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 function VideoContent() {
   const [videoData, setVideoData] = useState([]);
@@ -11,7 +12,7 @@ function VideoContent() {
 
   useEffect(() => {
     axios
-      .get(`/api/v1/video`)
+      .get(`${API_BASE_URL}/api/v1/video`)
       .then((response) => {
         setVideoData(response.data.data);
       })
@@ -39,7 +40,7 @@ function VideoContent() {
       }
 
       axios
-        .post("/api/v1/video/views", { videoId, sessionId })
+        .post(`${API_BASE_URL}/api/v1/video/views`, { videoId, sessionId })
         .catch((error) => {
           console.error("Failed to track video view", error);
         });

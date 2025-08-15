@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ContentSideBar from "./contentSideBar";
+import { API_BASE_URL } from "../config/api";
 import { useParams } from "react-router-dom";
 
 function VideoPlayer() {
@@ -25,7 +26,7 @@ function VideoPlayer() {
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
-        const response = await axios.get(`/api/v1/video/${videoId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/v1/video/${videoId}`);
         const fetchedVideo = response.data.data;
 
         if (fetchedVideo.owner) {
@@ -67,7 +68,7 @@ function VideoPlayer() {
 
   const fetchComments = async (page) => {
     try {
-      const response = await axios.get(`/api/v1/comment/${videoId}/comments`, {
+      const response = await axios.get(`${API_BASE_URL}/api/v1/comment/${videoId}/comments`, {
         params: { page, limit: 40 },
       });
 
@@ -107,7 +108,7 @@ function VideoPlayer() {
   const checkSubscription = async (channelId) => {
     if (!channelId) return false;
     try {
-      const response = await axios.get(`/api/v1/subscription/u/${channelId}`);
+      const response = await axios.get(`${API_BASE_URL}/api/v1/subscription/u/${channelId}`);
       return response.data.message === "Subscribed";
     } catch (error) {
       console.log("Failed to check subscription status:", error);
@@ -142,7 +143,7 @@ function VideoPlayer() {
       }));
 
       const response = await axios.post(
-        `/api/v1/subscription/toggle/${videoOwnerChannelId}`
+        `${API_BASE_URL}/api/v1/subscription/toggle/${videoOwnerChannelId}`
       );
 
       if (response.status === 200) {
@@ -168,7 +169,7 @@ function VideoPlayer() {
       return;
     }
 
-    axios.post("/api/v1/video/views", { videoId, sessionId }).catch((error) => {
+    axios.post(`${API_BASE_URL}/api/v1/video/views`, { videoId, sessionId }).catch((error) => {
       console.error("Failed to track video view", error);
     });
   };
@@ -181,7 +182,7 @@ function VideoPlayer() {
         return;
       }
 
-      const response = await axios.post(`/api/v1/comment/${videoId}/comments`, {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/comment/${videoId}/comments`, {
         content: commentText,
         sessionId,
       });
@@ -208,7 +209,7 @@ function VideoPlayer() {
 
   const handleEditComment = async (commentId) => {
     try {
-      const response = await axios.patch(`/api/v1/comment/c/${commentId}`, {
+      const response = await axios.patch(`${API_BASE_URL}/api/v1/comment/c/${commentId}`, {
         content: editedCommentText,
       });
 
@@ -228,7 +229,7 @@ function VideoPlayer() {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await axios.delete(`/api/v1/comment/c/${commentId}`);
+      const response = await axios.delete(`${API_BASE_URL}/api/v1/comment/c/${commentId}`);
 
       if (response.status === 200) {
         setComments((prevComments) =>
@@ -256,7 +257,7 @@ function VideoPlayer() {
 
   const handleLikeVideo = async () => {
     try {
-      const response = await axios.post(`/api/v1/like/toggle/v/${videoId}`);
+      const response = await axios.post(`${API_BASE_URL}/api/v1/like/toggle/v/${videoId}`);
 
       if (response.status === 200) {
         // Update the video state to reflect the new like count
@@ -276,7 +277,7 @@ function VideoPlayer() {
 
   const handleLikeComment = async (commentId) => {
     try {
-      const response = await axios.post(`/api/v1/like/toggle/c/${commentId}`);
+      const response = await axios.post(`${API_BASE_URL}/api/v1/like/toggle/c/${commentId}`);
 
       if (response.status === 200) {
         // Update the comments state to reflect the new like count

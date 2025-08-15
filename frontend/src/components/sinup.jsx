@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {API_BASE_URL} from '../config/api'
 
 function SignUp({ onToggleLogin }) {
   const [fullName, setFullName] = useState("");
@@ -24,7 +25,7 @@ function SignUp({ onToggleLogin }) {
     if (coverImage) formData.append("coverImage", coverImage);
 
     try {
-      await axios.post("/api/v1/users/register", formData, {
+      await axios.post(`${API_BASE_URL}/api/v1/users/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

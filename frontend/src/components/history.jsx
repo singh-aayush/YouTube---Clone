@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -17,7 +18,7 @@ const History = () => {
       }
 
       try {
-        const response = await Axios.get("/api/v1/users/history", {
+        const response = await Axios.get(`${API_BASE_URL}/api/v1/users/history`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

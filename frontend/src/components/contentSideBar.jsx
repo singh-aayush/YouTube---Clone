@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { API_BASE_URL} from '../config/api'
 import { useNavigate } from "react-router-dom";
 
 function ContentSideBar({ currentVideoId }) {
@@ -8,7 +9,7 @@ function ContentSideBar({ currentVideoId }) {
 
   useEffect(() => {
     axios
-      .get(`/api/v1/video`)
+      .get(`${API_BASE_URL}/api/v1/video`)
       .then((response) => {
         setVideoData(response.data.data);
       })
@@ -27,7 +28,7 @@ function ContentSideBar({ currentVideoId }) {
 
       // Send the view increment request to the server
       const response = axios
-        .post("/api/v1/video/views", {
+        .post(`${API_BASE_URL}/api/v1/video/views`, {
           videoId,
           sessionId,
         })

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 function Logout() {
   const Navigate = useNavigate();
@@ -17,7 +18,7 @@ function Logout() {
       "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     axios
-      .post("/api/v1/users/logout")
+      .post(`${API_BASE_URL}/api/v1/users/logout`)
       .then(() => {
         Navigate("/login");
       })

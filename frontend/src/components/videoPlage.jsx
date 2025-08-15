@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import VideoPlayer from "./videoPlayer.jsx";
+import { API_BASE_URL } from "../config/api.js";
 import axios from "axios";
 
 function VideoPage() {
@@ -9,7 +10,7 @@ function VideoPage() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await axios.get(`/api/v1/video/${currentVideoId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/v1/video/${currentVideoId}`);
         setVideoData(response.data.data);
       } catch (error) {
         console.error("Failed to fetch video data:", error);

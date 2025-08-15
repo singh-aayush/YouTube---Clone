@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +21,7 @@ function Channel() {
   useEffect(() => {
     const fetchChannelData = async () => {
       try {
-        const response = await axios.get(`/api/v1/channel/${channelId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/v1/channel/${channelId}`);
         setChannel(response.data.data);
       } catch (error) {
         console.error("Failed to fetch channel data:", error);
@@ -72,7 +73,7 @@ function Channel() {
 
     try {
       setUploading(true);
-      const response = await axios.post("/api/v1/video", formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/video`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {API_BASE_URL} from '../config/api'
 import { useNavigate } from "react-router-dom";
 
 function Login({ onLoginSuccess, onToggleSignup }) {
@@ -11,7 +12,7 @@ function Login({ onLoginSuccess, onToggleSignup }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/v1/users/login`, {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/users/login`, {
         email,
         password,
       });
