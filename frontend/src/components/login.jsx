@@ -17,15 +17,15 @@ function Login({ onLoginSuccess, onToggleSignup }) {
         password,
       });
 
-      // Fix: match backend key name
-      const { userAcessToken, sessionId, loggedInUser } = response.data.data;
+      const { accessToken, userAcessToken, sessionId, loggedInUser } = response.data.data;
+      const token = accessToken || userAcessToken; // pick whichever exists
 
       const channelId = loggedInUser.channel;
       localStorage.setItem("channelId", channelId);
       localStorage.setItem("userAvatar", loggedInUser.avatar);
       localStorage.setItem("name", loggedInUser.fullName);
       localStorage.setItem("userId", loggedInUser._id);
-      localStorage.setItem("accessToken", userAcessToken); // fixed
+      localStorage.setItem("accessToken", token);
       localStorage.setItem("sessionId", sessionId);
 
       if (onLoginSuccess) onLoginSuccess();
