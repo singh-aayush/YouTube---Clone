@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {API_BASE_URL} from '../config/api'
+import { API_BASE_URL } from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function Login({ onLoginSuccess, onToggleSignup }) {
@@ -17,14 +17,15 @@ function Login({ onLoginSuccess, onToggleSignup }) {
         password,
       });
 
-      const { accessToken, sessionId, loggedInUser } = response.data.data;
+      // Fix: match backend key name
+      const { userAcessToken, sessionId, loggedInUser } = response.data.data;
 
       const channelId = loggedInUser.channel;
       localStorage.setItem("channelId", channelId);
       localStorage.setItem("userAvatar", loggedInUser.avatar);
       localStorage.setItem("name", loggedInUser.fullName);
       localStorage.setItem("userId", loggedInUser._id);
-      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("accessToken", userAcessToken); // fixed
       localStorage.setItem("sessionId", sessionId);
 
       if (onLoginSuccess) onLoginSuccess();
