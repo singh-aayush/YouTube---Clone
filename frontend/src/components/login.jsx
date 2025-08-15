@@ -30,7 +30,7 @@ function Login({ onLoginSuccess, onToggleSignup }) {
       localStorage.setItem("accessToken", token);
       localStorage.setItem("sessionId", sessionId);
 
-      if (onLoginSuccess) onLoginSuccess();
+      if (onLoginSuccess) onLoginSuccess(token);
 
       navigate("/");
     } catch (error) {
