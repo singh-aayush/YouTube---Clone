@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Session
 const videoSessionSchema = new mongoose.Schema({
   sessionId: {
     type: String,
