@@ -446,6 +446,7 @@ function VideoPlayer() {
             width="100%"
             src={video.videoFile}
             onPlay={handlePlay}
+            controlsList="nodownload"
           ></video>
           <div className="videoInfo">
             <h2>{video.title}</h2>
