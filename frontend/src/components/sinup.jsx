@@ -43,6 +43,9 @@ function SignUp({ onToggleLogin }) {
     if (avatar) formData.append("avatar", avatar);
     if (coverImage) formData.append("coverImage", coverImage);
 
+    console.log('avatar', avatar)
+    console.log("coverimg", coverImage)
+
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/v1/users/register`,
