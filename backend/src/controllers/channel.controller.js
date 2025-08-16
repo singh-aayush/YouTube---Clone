@@ -4,10 +4,6 @@ export const getChannelById = async (req, res) => {
   try {
     const { channelId } = req.params;
 
-    // if (!channelId || !Channel.Types._id.isValid(channelId)) {
-    //   return res.status(400).json({ message: "Invalid channel ID" });
-    // }
-
     const channel = await Channel.findById(channelId).populate({
       path: "videos",
       select: "views thumbnail title",
