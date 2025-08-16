@@ -43,9 +43,6 @@ function SignUp({ onToggleLogin }) {
     if (avatar) formData.append("avatar", avatar);
     if (coverImage) formData.append("coverImage", coverImage);
 
-    console.log('avatar', avatar)
-    console.log("coverimg", coverImage)
-
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/v1/users/register`,
@@ -122,7 +119,7 @@ function SignUp({ onToggleLogin }) {
           </div>
 
           <div>
-            <label>Avatar (optional)</label>
+            <label>Avatar</label>
             <div className="mt-1 flex items-center">
               <input
                 type="file"
@@ -145,7 +142,7 @@ function SignUp({ onToggleLogin }) {
           </div>
 
           <div>
-            <label>Cover Image (optional)</label>
+            <label>Cover Image</label>
             <div className="mt-1 flex items-center">
               <input
                 type="file"
