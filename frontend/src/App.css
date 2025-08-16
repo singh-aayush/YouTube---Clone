@@ -255,6 +255,7 @@
   align-items: center;
   justify-items: center;
   left: 6vh;
+  cursor: pointer;
   transition: all 0.6s ease;
 }
 
