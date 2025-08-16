@@ -54,6 +54,9 @@ const coverImageLocalPath = req.files?.coverImage?.[0]?.path
   ? path.resolve(req.files.coverImage[0].path)
   : null;
 
+  console.log('avatar', avatarLocalPath)
+  console.log("coverimg", coverImageLocalPath)
+
 
     // Upload avatar if provided, else use default avatar
     let avatarUploadCloudinary = null;
